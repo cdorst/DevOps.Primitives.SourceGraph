@@ -1,7 +1,22 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
+
+  <PropertyGroup>
+    <Authors>cdorst</Authors>
+    <Description>Contains structures for modeling repositories under a GitHub account as nodes on a source-code DAG</Description>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageId>CDorst.DevOps.Primitives.SourceGraph</PackageId>
+    <Version>1.0.0</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CDorst.DevOps.Primitives.CSharp" Version="4.1.1" />
+    <PackageReference Include="CDorst.DevOps.Primitives.VisualStudio.Projects.Helpers.DotNetCore" Version="3.0.1" />
+    <PackageReference Include="CDorst.DevOps.Primitives.VisualStudio.Solutions.Helpers.VisualStudio15" Version="1.0.0" />
+  </ItemGroup>
 
 </Project>
