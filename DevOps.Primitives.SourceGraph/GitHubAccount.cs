@@ -9,6 +9,13 @@ namespace DevOps.Primitives.SourceGraph
     [Table("GitHubAccounts", Schema = nameof(SourceGraph))]
     public class GitHubAccount
     {
+        public GitHubAccount() { }
+        public GitHubAccount(string accountName, RepositoryList repositoryList)
+        {
+            AccountName = new AsciiStringReference(accountName);
+            RepositoryList = repositoryList;
+        }
+
         [Key]
         [ProtoMember(1)]
         public int GitHubAccountId { get; set; }

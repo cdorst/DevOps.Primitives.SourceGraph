@@ -10,6 +10,14 @@ namespace DevOps.Primitives.SourceGraph
     [Table("RepositoryFiles", Schema = nameof(SourceGraph))]
     public class RepositoryFile : IUniqueListRecord
     {
+        public RepositoryFile() { }
+        public RepositoryFile(string fileName, string content, string relativePath)
+        {
+            Content = new UnicodeMaxStringReference(content);
+            FileName = new AsciiStringReference(fileName);
+            PathRelativeToRepositoryRoot = new AsciiStringReference(relativePath);
+        }
+
         [Key]
         [ProtoMember(1)]
         public int RepositoryFileId { get; set; }
