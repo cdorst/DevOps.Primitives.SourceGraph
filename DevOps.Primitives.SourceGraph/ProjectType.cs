@@ -7,6 +7,7 @@
         DeclarationData,
         Functions,
         Helpers,
-        Structures
+        Structures,
+        Tests
     }
 }

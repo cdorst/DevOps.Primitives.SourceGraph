@@ -1,5 +1,6 @@
 ﻿using DevOps.Primitives.CSharp;
 using ProtoBuf;
+using static DevOps.Primitives.SourceGraph.Files.CSharpFileNameHelper;
 
 namespace DevOps.Primitives.SourceGraph.Files
 {
@@ -7,8 +8,11 @@ namespace DevOps.Primitives.SourceGraph.Files
     public class CSharpFile : RepositoryFile
     {
         public CSharpFile() : base() { }
-        public CSharpFile(TypeDeclaration typeDeclaration, string fileName, string content, string relativePath)
-            : base(fileName, content, relativePath)
+        public CSharpFile(TypeDeclaration typeDeclaration, string containingFolderPath)
+            : base(
+                  fileName: FileName(typeDeclaration),
+                  content: typeDeclaration.ToString(),
+                  relativePath: $"{containingFolderPath}/{FileName(typeDeclaration)}")
         {
             TypeDeclaration = typeDeclaration;
         }
