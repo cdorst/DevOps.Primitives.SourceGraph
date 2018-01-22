@@ -7,10 +7,10 @@
 
   <PropertyGroup>
     <Authors>cdorst</Authors>
-    <Description>Contains structures for modeling repositories under a GitHub account as nodes on a source-code DAG</Description>
+    <Description>Contains structures for modeling source-code repositories under a GitHub account</Description>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>CDorst.DevOps.Primitives.SourceGraph</PackageId>
-    <Version>1.2.0</Version>
+    <Version>1.2.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
