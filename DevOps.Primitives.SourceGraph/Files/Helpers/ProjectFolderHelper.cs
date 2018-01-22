@@ -1,4 +1,4 @@
-﻿namespace DevOps.Primitives.SourceGraph.Files
+﻿namespace DevOps.Primitives.SourceGraph.Files.Helpers
 {
     internal static class ProjectFolderHelper
     {

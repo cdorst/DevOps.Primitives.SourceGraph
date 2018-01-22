@@ -1,6 +1,6 @@
 ﻿using DevOps.Primitives.VisualStudio.Projects;
 
-namespace DevOps.Primitives.SourceGraph.Files
+namespace DevOps.Primitives.SourceGraph.Files.Helpers
 {
     internal static class ProjectNameHelper
     {

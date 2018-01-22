@@ -1,6 +1,6 @@
 ﻿using DevOps.Primitives.VisualStudio.Solutions;
 using ProtoBuf;
-using static DevOps.Primitives.SourceGraph.Files.SolutionFileNameHelper;
+using static DevOps.Primitives.SourceGraph.Files.Helpers.SolutionFileNameHelper;
 
 namespace DevOps.Primitives.SourceGraph.Files
 {

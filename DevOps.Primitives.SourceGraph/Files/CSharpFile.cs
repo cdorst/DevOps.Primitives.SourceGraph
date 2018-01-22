@@ -1,6 +1,6 @@
 ﻿using DevOps.Primitives.CSharp;
 using ProtoBuf;
-using static DevOps.Primitives.SourceGraph.Files.CSharpFileNameHelper;
+using static DevOps.Primitives.SourceGraph.Files.Helpers.CSharpFileNameHelper;
 
 namespace DevOps.Primitives.SourceGraph.Files
 {

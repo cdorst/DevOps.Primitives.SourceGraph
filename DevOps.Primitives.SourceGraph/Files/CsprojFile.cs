@@ -1,7 +1,7 @@
 ﻿using DevOps.Primitives.VisualStudio.Projects;
 using ProtoBuf;
-using static DevOps.Primitives.SourceGraph.Files.ProjectFileNameHelper;
-using static DevOps.Primitives.SourceGraph.Files.ProjectPathHelper;
+using static DevOps.Primitives.SourceGraph.Files.Helpers.ProjectFileNameHelper;
+using static DevOps.Primitives.SourceGraph.Files.Helpers.ProjectPathHelper;
 
 namespace DevOps.Primitives.SourceGraph.Files
 {
