@@ -27,5 +27,14 @@ namespace DevOps.Primitives.SourceGraph
 
         [ProtoMember(4)]
         public RepositoryList RepositoryList { get; set; }
+        [ProtoMember(5)]
+        public int RepositoryListId { get; set; }
+    }
+
+    public class AppveyorBuild
+    {
+        [Key]
+        [ProtoMember(1)]
+        public int AppveyorBuildId { get; set; }
     }
 }
