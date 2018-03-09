@@ -5,6 +5,7 @@ using ProtoBuf;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
 namespace DevOps.Primitives.SourceGraph
 {
@@ -17,6 +18,10 @@ namespace DevOps.Primitives.SourceGraph
         {
             RepositoryFileListAssociations = associations;
             ListIdentifier = listIdentifier;
+        }
+        public RepositoryFileList(params RepositoryFile[] files)
+            : this(files.Select(f => new RepositoryFileListAssociation(f)).ToList())
+        {
         }
         public RepositoryFileList(RepositoryFileListAssociation associations, AsciiStringReference listIdentifier = null)
             : this(new List<RepositoryFileListAssociation> { associations }, listIdentifier)

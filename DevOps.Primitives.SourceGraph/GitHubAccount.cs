@@ -1,7 +1,6 @@
 ﻿using ProtoBuf;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 
 namespace DevOps.Primitives.SourceGraph
 {
@@ -10,20 +9,10 @@ namespace DevOps.Primitives.SourceGraph
     public class GitHubAccount
     {
         public GitHubAccount() { }
-        public GitHubAccount(GitHubAccountSettings gitHubAccountSettings, RepositoryList repositoryList)
+        public GitHubAccount(AccountSettings accountSettings, RepositoryList repositoryList = null)
         {
-            GitHubAccountSettings = gitHubAccountSettings;
+            AccountSettings = accountSettings;
             RepositoryList = repositoryList;
-        }
-        public GitHubAccount(string accountName, string email, string committerName, RepositoryList repositoryList)
-            : this(new GitHubAccountSettings(accountName, email, committerName), repositoryList)
-        {
-        }
-        public GitHubAccount(string accountName, string email, string committerName, params Repository[] repositories)
-            : this(accountName, email, committerName,
-                  new RepositoryList(repositories.Select(r
-                      => new RepositoryListAssociation(r)).ToList()))
-        {
         }
 
         [Key]
@@ -31,9 +20,9 @@ namespace DevOps.Primitives.SourceGraph
         public int GitHubAccountId { get; set; }
 
         [ProtoMember(2)]
-        public GitHubAccountSettings GitHubAccountSettings { get; set; }
+        public AccountSettings AccountSettings { get; set; }
         [ProtoMember(3)]
-        public int GitHubAccountSettingsId { get; set; }
+        public int AccountSettingsId { get; set; }
 
         [ProtoMember(4)]
         public RepositoryList RepositoryList { get; set; }

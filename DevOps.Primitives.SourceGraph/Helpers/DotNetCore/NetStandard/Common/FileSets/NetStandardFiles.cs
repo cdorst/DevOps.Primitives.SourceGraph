@@ -13,8 +13,21 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.NetStandard.Common.Fi
         public static IEnumerable<RepositoryFile> NetStandardRepo(
             string name,
             IEnumerable<NuGetReference> nuGetReferences = null,
+            NuGetPackageInfo nuGetPackageInfo = null)
+            => DotNetCoreRepo(name, TFM, nuGetReferences, nuGetPackageInfo, types: null);
+
+        public static IEnumerable<RepositoryFile> NetStandardRepo(
+            string name,
+            IEnumerable<NuGetReference> nuGetReferences = null,
             NuGetPackageInfo nuGetPackageInfo = null,
             params TypeDeclaration[] types)
+            => DotNetCoreRepo(name, TFM, nuGetReferences, nuGetPackageInfo, types);
+
+        public static IEnumerable<RepositoryFile> NetStandardRepo(
+            string name,
+            IEnumerable<NuGetReference> nuGetReferences = null,
+            NuGetPackageInfo nuGetPackageInfo = null,
+            params RepositoryFile[] types)
             => DotNetCoreRepo(name, TFM, nuGetReferences, nuGetPackageInfo, types);
     }
 }

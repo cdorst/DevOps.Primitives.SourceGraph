@@ -21,6 +21,14 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.Common.FileSets
             => StandardGitRepo().Concat(Files(solution, project, types));
 
         public static IEnumerable<RepositoryFile> DotNetCoreRepo(
+            Solution solution,
+            Project project,
+            IEnumerable<RepositoryFile> types)
+            => StandardGitRepo()
+                .Concat(Files(solution, project))
+                .Concat(types);
+
+        public static IEnumerable<RepositoryFile> DotNetCoreRepo(
             string name,
             string targetFramework,
             IEnumerable<NuGetReference> nuGetReferences = null,
@@ -29,14 +37,25 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.Common.FileSets
             => StandardGitRepo().Concat(
                 Files(name, targetFramework, nuGetReferences, nuGetPackageInfo, types));
 
+        public static IEnumerable<RepositoryFile> DotNetCoreRepo(
+            string name,
+            string targetFramework,
+            IEnumerable<NuGetReference> nuGetReferences = null,
+            NuGetPackageInfo nuGetPackageInfo = null,
+            params RepositoryFile[] files)
+            => StandardGitRepo()
+                .Concat(Files(name, targetFramework, nuGetReferences, nuGetPackageInfo))
+                .Concat(files);
+
         private static IEnumerable<RepositoryFile> Files(
             Solution solution,
             Project project,
-            IEnumerable<TypeDeclaration> types)
+            IEnumerable<TypeDeclaration> types = null)
         {
             yield return Solution(solution);
             yield return Csproj(project);
-            foreach (var type in types) yield return Code(type);
+            foreach (var type in types ?? new TypeDeclaration[] { })
+                yield return Code(type);
         }
 
         private static IEnumerable<RepositoryFile> Files(
@@ -44,11 +63,12 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.Common.FileSets
             string targetFramework,
             IEnumerable<NuGetReference> nuGetReferences,
             NuGetPackageInfo nuGetPackageInfo,
-            IEnumerable<TypeDeclaration> types)
+            IEnumerable<TypeDeclaration> types = null)
         {
             yield return Solution(name);
             yield return Csproj(name, targetFramework, nuGetReferences, nuGetPackageInfo: nuGetPackageInfo);
-            foreach (var type in types) yield return Code(type);
+            foreach (var type in types ?? new TypeDeclaration[] { })
+                yield return Code(type);
         }
     }
 }
