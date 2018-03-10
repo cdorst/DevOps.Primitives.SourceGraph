@@ -43,7 +43,8 @@ before_build:
 build:
   verbosity: minimal
 after_build:
-- ps: & dotnet {ToolsDirectory}\after.dll {namespacePrefix} nuget {ParentDirectory}\tmp
+- ps: >-
+    & dotnet {ToolsDirectory}\after.dll {namespacePrefix} nuget {ParentDirectory}\tmp
 artifacts:
 - path: '**\*.nupkg'
 deploy:
