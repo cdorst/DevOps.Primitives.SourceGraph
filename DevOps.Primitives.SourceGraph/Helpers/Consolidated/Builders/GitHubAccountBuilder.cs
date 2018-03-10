@@ -8,11 +8,13 @@ namespace DevOps.Primitives.SourceGraph.Helpers.Consolidated.Builders
 {
     public static class GitHubAccountBuilder
     {
+        private static Func<GitHubAccount, Repository>[] Empty = new Func<GitHubAccount, Repository>[] { };
+
         public static GitHubAccount GitHub(
             GitHubAccountSpecification account,
             IEnumerable<Func<GitHubAccount, Repository>> repositories)
             => GitHubAccounts.GitHubAccount(account)
-                .WithRepositories(repositories.ToArray());
+                .WithRepositories(repositories?.ToArray() ?? Empty);
 
         public static GitHubAccount GitHub(
             GitHubAccountSpecification account,
@@ -24,7 +26,7 @@ namespace DevOps.Primitives.SourceGraph.Helpers.Consolidated.Builders
             GitHubAccountSpecification account,
             IEnumerable<Entity> entities)
             => GitHub(account,
-                entities.Select(entity => entity.GetBuilder()));
+                entities?.Select(entity => entity.GetBuilder()));
 
         public static GitHubAccount GitHub(
             GitHubAccountSpecification account,
@@ -32,7 +34,7 @@ namespace DevOps.Primitives.SourceGraph.Helpers.Consolidated.Builders
             IEnumerable<Entity> entities)
             => GitHub(account, code)
                 .WithRepositories(
-                    entities.Select(entity => entity.GetBuilder()).ToArray());
+                    entities?.Select(entity => entity.GetBuilder()).ToArray() ?? Empty);
 
         public static GitHubAccount GitHub(
             GitHubAccountSpecification account,
@@ -41,6 +43,6 @@ namespace DevOps.Primitives.SourceGraph.Helpers.Consolidated.Builders
             IEnumerable<Metapackage> metapackages)
             => GitHub(account, code)
                 .WithRepositories(
-                    metapackages.Select(package => package.GetBuilder()).ToArray());
+                    metapackages?.Select(package => package.GetBuilder()).ToArray() ?? Empty);
     }
 }
