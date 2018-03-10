@@ -16,7 +16,7 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.Common.Files
             IEnumerable<NuGetReference> nuGetReferences,
             NuGetPackageInfo nuGetPackageInfo)
         {
-            var content = new StringBuilder($"# {name}");
+            var content = new StringBuilder($"# {name}").AppendLine();
             if (nuGetPackageInfo != null)
             {
                 content.AppendLine("## Description")
@@ -53,9 +53,15 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.Common.Files
         }
 
         private static string GetNuGetLink(string name, bool useUrlAsName = false)
-            => $"[{GetNuGetLinkName(name, useUrlAsName)}](https://www.nuget.org/packages/{name})";
+            => GetNuGetLinkComposed(GetNuGetLinkUrl(name), useUrlAsName);
 
-        private static string GetNuGetLinkName(string name, bool useUrlAsName)
-            => useUrlAsName ? name : NuGet;
+        private static string GetNuGetLinkComposed(string url, bool useUrlAsName)
+            => $"[{GetNuGetLinkName(url, useUrlAsName)}]({url})";
+
+        private static string GetNuGetLinkName(string url, bool useUrlAsName)
+            => useUrlAsName ? url : NuGet;
+
+        private static string GetNuGetLinkUrl(string name)
+            => $"https://www.nuget.org/packages/{name}";
     }
 }

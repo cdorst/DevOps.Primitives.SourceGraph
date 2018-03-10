@@ -11,7 +11,7 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.Common.Files
     {
         public static RepositoryFile Csproj(Project project)
             => csproj(
-                project.MsBuildProjectFile.ToString(),
+                project.MsBuildProjectFile.GetProjectFile(),
                 project.Name.Value);
 
         public static RepositoryFile Csproj(

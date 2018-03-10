@@ -17,7 +17,7 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.NetStandard.Packages.
             => Code(specification.Code.Code, specification.Package);
 
         public static Repository Code(InterfacePackageSpecification specification, PackageRepositorySpecification package)
-            => specification is ClassPackageSpecification
+            => specification is IClassPackageSpecification
                 ? SingleClass(package, specification as ClassPackageSpecification)
                 : SingleInterface(package, specification);
 
