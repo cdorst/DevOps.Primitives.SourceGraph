@@ -5,9 +5,11 @@ using DevOps.Primitives.VisualStudio.Projects.Helpers.DotNetCore;
 using DevOps.Primitives.VisualStudio.Solutions;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using static DevOps.Primitives.SourceGraph.Helpers.Common.FileSets.CommonGitRepoFiles;
 using static DevOps.Primitives.SourceGraph.Helpers.DotNetCore.Common.Files.CSharpCode;
 using static DevOps.Primitives.SourceGraph.Helpers.DotNetCore.Common.Files.CsprojFile;
+using static DevOps.Primitives.SourceGraph.Helpers.DotNetCore.Common.Files.ReadmeFile;
 using static DevOps.Primitives.SourceGraph.Helpers.DotNetCore.Common.Files.SlnFile;
 
 namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.Common.FileSets
@@ -65,6 +67,7 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.Common.FileSets
             NuGetPackageInfo nuGetPackageInfo,
             IEnumerable<TypeDeclaration> types = null)
         {
+            yield return Readme(name, nuGetReferences, nuGetPackageInfo);
             yield return Solution(name);
             yield return Csproj(name, targetFramework, nuGetReferences, nuGetPackageInfo: nuGetPackageInfo);
             foreach (var type in types ?? new TypeDeclaration[] { })
