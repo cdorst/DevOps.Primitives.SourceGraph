@@ -36,6 +36,8 @@ install:
 
     }}
 
+    & cd ""$env:APPVEYOR_BUILD_FOLDER""
+
     & dotnet {ToolsDirectory}\before.dll {namespacePrefix} {CacheDirectory} {nugetSource}
 cache: {CacheDirectory}
 before_build:
