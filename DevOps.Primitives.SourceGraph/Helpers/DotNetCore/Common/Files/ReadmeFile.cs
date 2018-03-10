@@ -21,7 +21,7 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.Common.Files
             {
                 content.AppendLine("## Description")
                     .AppendLine().AppendLine(nuGetPackageInfo.Description).AppendLine();
-                var prefix = name.Split('.').First();
+                var prefix = nuGetPackageInfo.PackageId.Split('.').First();
                 if (Any(nuGetReferences))
                 {
                     content.AppendLine("## Dependencies").AppendLine()
