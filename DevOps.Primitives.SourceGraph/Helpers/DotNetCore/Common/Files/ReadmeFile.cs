@@ -19,9 +19,12 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.Common.Files
             var content = new StringBuilder($"# {name}").AppendLine();
             if (nuGetPackageInfo != null)
             {
+                var prefix = nuGetPackageInfo.PackageId.Split('.').First();
+                var prefixLower = prefix.ToLower();
+                var dashName = name.Replace('.', '-').ToLower();
+                content.AppendLine().AppendLine($"[![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/{prefix}/{name})](https://ci.appveyor.com/project/{prefixLower}/{dashName})").AppendLine();
                 content.AppendLine("## Description")
                     .AppendLine().AppendLine(nuGetPackageInfo.Description).AppendLine();
-                var prefix = nuGetPackageInfo.PackageId.Split('.').First();
                 if (Any(nuGetReferences))
                 {
                     content.AppendLine("## Dependencies").AppendLine()
