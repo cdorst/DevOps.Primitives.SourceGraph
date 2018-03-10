@@ -10,13 +10,13 @@ namespace DevOps.Primitives.SourceGraph
     public class RepositoryNameDescription
     {
         public RepositoryNameDescription() { }
-        public RepositoryNameDescription(AsciiStringReference description, AsciiStringReference name)
+        public RepositoryNameDescription(AsciiStringReference name, AsciiStringReference description)
         {
             Description = description;
             Name = name;
         }
-        public RepositoryNameDescription(string description, string name)
-            : this(new AsciiStringReference(description), new AsciiStringReference(name))
+        public RepositoryNameDescription(string name, string description)
+            : this(new AsciiStringReference(name), new AsciiStringReference(description))
         {
         }
 
