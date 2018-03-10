@@ -33,5 +33,14 @@ namespace DevOps.Primitives.SourceGraph.Helpers.Consolidated.Builders
             => GitHub(account, code)
                 .WithRepositories(
                     entities.Select(entity => entity.GetBuilder()).ToArray());
+
+        public static GitHubAccount GitHub(
+            GitHubAccountSpecification account,
+            IEnumerable<Code> code,
+            IEnumerable<Entity> entities,
+            IEnumerable<Metapackage> metapackages)
+            => GitHub(account, code)
+                .WithRepositories(
+                    metapackages.Select(package => package.GetBuilder()).ToArray());
     }
 }
