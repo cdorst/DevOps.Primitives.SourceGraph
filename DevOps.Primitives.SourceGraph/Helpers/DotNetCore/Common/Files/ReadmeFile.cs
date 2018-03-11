@@ -9,7 +9,8 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.Common.Files
 {
     public static class ReadmeFile
     {
-        private const string BadgeStyle = "for-the-badge"; // https://shields.io
+        private const string BadgeStyleLarge = "for-the-badge"; // https://shields.io
+        private const string BadgeStyleSmall = "flat-square"; // https://shields.io
         private const string NuGet = nameof(NuGet);
 
         public static RepositoryFile Readme(
@@ -48,27 +49,27 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.Common.Files
                 var prefix = nuGetReferences.First().Include.Value.Split('.').First(); // MyProject.MyDomain.MyConcern => MyProject
                 var prefixSubStrIdx = prefix.Length + 1;
                 content.AppendLine("## Repositories").AppendLine()
-                    .AppendLine("Name | Version | Links | Badges")
-                    .AppendLine("---- | ------- | ----- | ------");
+                    .AppendLine("Name | Version | Badges")
+                    .AppendLine("---- | ------- | ------");
                 foreach (var dependency in nuGetReferences.OrderBy(pkg => pkg.Include.Value))
                 {
                     var repoName = dependency.Include.Value.Substring(prefixSubStrIdx);
-                    content.AppendLine($"{repoName} | {dependency.Version.Value} | {GetLinks(dependency, prefix)} | {GetBadges(prefix, repoName)}");
+                    content.AppendLine($"[{repoName}](https://github.com/{prefix}{repoName}) | {dependency.Version.Value} | {GetBadges(prefix, repoName)}");
                 }
                 content.AppendLine();
             }
             return new RepositoryFile("README.md", content.ToString());
         }
 
-        private static string GetAppVeyorBadge(string prefix, string name)
+        private static string GetAppVeyorBadge(string prefix, string name, string style = BadgeStyleLarge)
         {
             var dashName = name.Replace('.', '-').ToLower();
             var prefixLower = prefix.ToLower();
-            return $"[![AppVeyor build status](https://img.shields.io/appveyor/ci/{prefixLower}/{dashName}/master.svg?label=AppVeyor&style={BadgeStyle})](https://ci.appveyor.com/project/{prefixLower}/{dashName})";
+            return $"[![AppVeyor build status](https://img.shields.io/appveyor/ci/{prefixLower}/{dashName}/master.svg?label=AppVeyor&style={style})](https://ci.appveyor.com/project/{prefixLower}/{dashName})";
         }
 
         private static string GetBadges(string prefix, string repoName)
-            => $"{GetAppVeyorBadge(prefix, repoName)} {GetNuGetBadge(prefix, repoName)}";
+            => $"{GetAppVeyorBadge(prefix, repoName, BadgeStyleSmall)} {GetNuGetBadge(prefix, repoName, BadgeStyleSmall)}";
 
         private static string GetFullName(string prefix, string name) => $"{prefix}.{name}";
 
@@ -84,10 +85,10 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.Common.Files
             return links.ToString();
         }
 
-        private static string GetNuGetBadge(string prefix, string name, string fullName = null)
+        private static string GetNuGetBadge(string prefix, string name, string fullName = null, string style = BadgeStyleLarge)
         {
             if (string.IsNullOrEmpty(fullName)) fullName = GetFullName(prefix, name);
-            return $"[![NuGet package status](https://img.shields.io/nuget/v/{prefix}.{name}.svg?label=NuGet&style={BadgeStyle})]({GetNuGetLinkUrl(fullName)})";
+            return $"[![NuGet package status](https://img.shields.io/nuget/v/{prefix}.{name}.svg?label=NuGet&style={style})]({GetNuGetLinkUrl(fullName)})";
         }
 
         private static string GetNuGetLink(string name, bool useUrlAsName = false)
