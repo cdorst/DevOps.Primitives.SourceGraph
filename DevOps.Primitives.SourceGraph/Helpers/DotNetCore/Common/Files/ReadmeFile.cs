@@ -49,12 +49,12 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.Common.Files
                 var prefix = nuGetReferences.First().Include.Value.Split('.').First(); // MyProject.MyDomain.MyConcern => MyProject
                 var prefixSubStrIdx = prefix.Length + 1;
                 content.AppendLine("## Repositories").AppendLine()
-                    .AppendLine("Name | Version | Badges")
-                    .AppendLine("---- | ------- | ------");
-                foreach (var dependency in nuGetReferences.OrderBy(pkg => pkg.Include.Value))
+                    .AppendLine("Name | Badges")
+                    .AppendLine("---- | ------");
+                foreach (var dependency in nuGetReferences)
                 {
                     var repoName = dependency.Include.Value.Substring(prefixSubStrIdx);
-                    content.AppendLine($"[{repoName}](https://github.com/{prefix}{repoName}) | {dependency.Version.Value} | {GetBadges(prefix, repoName)}");
+                    content.AppendLine($"[{repoName}](https://github.com/{prefix}{repoName}) | {GetBadges(prefix, repoName)}");
                 }
                 content.AppendLine();
             }
