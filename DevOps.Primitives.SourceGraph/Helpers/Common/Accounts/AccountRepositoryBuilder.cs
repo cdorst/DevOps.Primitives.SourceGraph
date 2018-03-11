@@ -1,7 +1,5 @@
-﻿using Common.EntityFrameworkServices;
-using System;
+﻿using System;
 using System.Linq;
-using static DevOps.Primitives.SourceGraph.RepositoryNameEqualityComparer;
 
 namespace DevOps.Primitives.SourceGraph.Helpers.Common.Accounts
 {
@@ -9,14 +7,9 @@ namespace DevOps.Primitives.SourceGraph.Helpers.Common.Accounts
     {
         public static GitHubAccount WithRepositories(this GitHubAccount account,
             params Func<GitHubAccount, Repository>[] repositories)
-            => new GitHubAccount(account.AccountSettings,
-                new RepositoryList((repositories?
-                    .Select(repo => repo(account)) ?? new Repository[] { })
-                    .Concat(
-                        account.RepositoryList?.GetRecords() ?? new Repository[] { })
-                    .Where(r => r.RepositoryNameDescription != null)
-                    .Distinct(RepositoryName)
-                    .Order()
-                    .Select(repo => new RepositoryListAssociation(repo)).ToList()));
+        {
+            foreach (var repository in repositories.Select(r => r(account))) account = account.AddRepository(repository);
+            return account;
+        }
     }
 }

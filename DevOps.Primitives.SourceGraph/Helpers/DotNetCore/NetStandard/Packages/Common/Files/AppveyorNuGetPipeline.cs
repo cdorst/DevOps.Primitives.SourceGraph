@@ -16,7 +16,7 @@ environment:
   LOCAL_NUGET_SOURCE_PATH: {CacheDirectory}
 install:
 - ps: >-
-    $source = ""https://cdorst-dev.azureedge.net/build/nuget-tools_08.zip""
+    $source = ""https://cdorst-dev.azureedge.net/build/nuget-tools_09.zip""
 
     $toolsZip = ""{ToolsDirectory}.zip""
 
