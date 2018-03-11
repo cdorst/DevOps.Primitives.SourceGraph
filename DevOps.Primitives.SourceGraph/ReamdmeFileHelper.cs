@@ -13,8 +13,8 @@ namespace DevOps.Primitives.SourceGraph.Helpers.Common.Files
             return $"[![AppVeyor build status](https://img.shields.io/appveyor/ci/{prefixLower}/{dashName}.svg?label=AppVeyor&style={style})](https://ci.appveyor.com/project/{prefixLower}/{dashName})";
         }
 
-        public static string GetBadges(string prefix, string repoName)
-            => $"{GetAppVeyorBadge(prefix, repoName, BadgeStyleSmall)} {GetNuGetBadge(prefix, repoName, BadgeStyleSmall)}";
+        public static string GetBadges(string prefix, string repoName, string style = BadgeStyleSmall)
+            => $"{GetAppVeyorBadge(prefix, repoName, style)} {GetNuGetBadge(prefix, repoName, null, style)}";
 
         public static string GetFullName(string prefix, string name) => $"{prefix}.{name}";
 

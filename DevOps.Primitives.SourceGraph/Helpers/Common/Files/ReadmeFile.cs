@@ -32,10 +32,10 @@ namespace DevOps.Primitives.SourceGraph.Helpers.Common.Files
                 if (Any(nuGetReferences))
                 {
                     content.AppendLine("## Dependencies").AppendLine()
-                        .AppendLine("Name | Version | Links")
-                        .AppendLine("---- | ------- | -----");
+                        .AppendLine("Name | Status")
+                        .AppendLine("---- | ------");
                     foreach (var dependency in nuGetReferences) content
-                        .AppendLine($"{dependency.Include.Value} | {dependency.Version.Value} | {GetLinks(dependency, prefix)}");
+                        .AppendLine($"{GetDependencyLink(dependency, prefix)} | {GetStatus(dependency, prefix)}");
                     content.AppendLine();
                 }
                 content.AppendLine("## NuGet")
@@ -48,16 +48,20 @@ namespace DevOps.Primitives.SourceGraph.Helpers.Common.Files
             return new RepositoryFile(ReadmeFileName, content.ToString());
         }
 
-        private static string GetLinks(NuGetReference dependency, string prefix)
+        private static string GetDependencyLink(NuGetReference dependency, string prefix)
         {
             var name = dependency.Include.Value;
-            var links = new StringBuilder(GetNuGetLink(name));
-            if (name.StartsWith($"{prefix}."))
-            {
-                var repo = string.Join(".", name.Split('.').Skip(1));
-                links.Append($", [GitHub](https://github.com/{prefix}/{repo})");
-            }
-            return links.ToString();
+            var external = !name.StartsWith($"{prefix}.");
+            return external ? name : $"[{name}](https://github.com/{prefix}/{name.Substring(prefix.Length + 1)})";
+        }
+
+        private static string GetStatus(NuGetReference dependency, string prefix)
+        {
+            var name = dependency.Include.Value;
+            var external = !name.StartsWith($"{prefix}.");
+            return !external
+                ? GetBadges(prefix, name.Substring(prefix.Length + 1))
+                : $"[![NuGet package status](https://img.shields.io/nuget/v/{name}.svg?label=NuGet&style={ReadmeFileBadgeStyles.BadgeStyleSmall})]({GetNuGetLinkUrl(name)})";
         }
 
         private static string GetNuGetLink(string name, bool useUrlAsName = false)

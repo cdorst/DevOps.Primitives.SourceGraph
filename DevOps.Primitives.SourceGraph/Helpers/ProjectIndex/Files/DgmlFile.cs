@@ -19,7 +19,7 @@ namespace DevOps.Primitives.SourceGraph.Helpers.ProjectIndex.Files
             foreach (var node in nodesAndLinks)
                 foreach (var link in node.Value ?? new string[] { })
                     linkList.Add(new Link(link, node.Key));
-            var content = new StringBuilder(Head);
+            var content = new StringBuilder(Head).AppendLine();
             foreach (var node in nodesAndLinks.Keys)
                 content.AppendLine($"\t\t{GetNodeXml(node)}");
             content
