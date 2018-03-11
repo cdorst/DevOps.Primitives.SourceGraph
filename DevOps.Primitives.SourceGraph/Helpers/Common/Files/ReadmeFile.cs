@@ -5,12 +5,12 @@ using System.Linq;
 using System.Text;
 using static Common.Functions.CheckNullableEnumerationForAnyElements.NullableEnumerationAny;
 
-namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.Common.Files
+using static DevOps.Primitives.SourceGraph.Helpers.Common.Files.ReamdmeFileHelper;
+
+namespace DevOps.Primitives.SourceGraph.Helpers.Common.Files
 {
     public static class ReadmeFile
     {
-        private const string BadgeStyleLarge = "for-the-badge"; // https://shields.io
-        private const string BadgeStyleSmall = "flat-square"; // https://shields.io
         private const string NuGet = nameof(NuGet);
 
         public static RepositoryFile Readme(
@@ -42,36 +42,11 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.Common.Files
                     .AppendLine().AppendLine($"This project is published as a NuGet package at {GetNuGetLink(fullName, true)}").AppendLine();
                 content.AppendLine("## Version")
                     .AppendLine().AppendLine(nuGetPackageInfo.Version).AppendLine();
+                content.AppendLine("## Metaproject")
+                    .AppendLine().AppendLine($"{name} is a component of a larger project distributed across multiple repositories on this GitHub account. Some of these component-projects (including this one) are created and maintained by robots. View the metaproject's component directory at [https://github.com/{prefix}/Project.Index](https://github.com/{prefix}/Project.Index)").AppendLine();
             }
-            else if (name == "Project.Index" && Any(nuGetReferences))
-            {
-                // This is a special case for a "Project.Index" repository where each NuGetReference is another project under the same GitHub account
-                var prefix = nuGetReferences.First().Include.Value.Split('.').First(); // MyProject.MyDomain.MyConcern => MyProject
-                var prefixSubStrIdx = prefix.Length + 1;
-                content.AppendLine("## Repositories").AppendLine()
-                    .AppendLine("Name | Badges")
-                    .AppendLine("---- | ------");
-                foreach (var dependency in nuGetReferences)
-                {
-                    var repoName = dependency.Include.Value.Substring(prefixSubStrIdx);
-                    content.AppendLine($"[{repoName}](https://github.com/{prefix}{repoName}) | {GetBadges(prefix, repoName)}");
-                }
-                content.AppendLine();
-            }
-            return new RepositoryFile("README.md", content.ToString());
+            return new RepositoryFile(ReadmeFileName, content.ToString());
         }
-
-        private static string GetAppVeyorBadge(string prefix, string name, string style = BadgeStyleLarge)
-        {
-            var dashName = name.Replace('.', '-').ToLower();
-            var prefixLower = prefix.ToLower();
-            return $"[![AppVeyor build status](https://img.shields.io/appveyor/ci/{prefixLower}/{dashName}/master.svg?label=AppVeyor&style={style})](https://ci.appveyor.com/project/{prefixLower}/{dashName})";
-        }
-
-        private static string GetBadges(string prefix, string repoName)
-            => $"{GetAppVeyorBadge(prefix, repoName, BadgeStyleSmall)} {GetNuGetBadge(prefix, repoName, BadgeStyleSmall)}";
-
-        private static string GetFullName(string prefix, string name) => $"{prefix}.{name}";
 
         private static string GetLinks(NuGetReference dependency, string prefix)
         {
@@ -85,12 +60,6 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.Common.Files
             return links.ToString();
         }
 
-        private static string GetNuGetBadge(string prefix, string name, string fullName = null, string style = BadgeStyleLarge)
-        {
-            if (string.IsNullOrEmpty(fullName)) fullName = GetFullName(prefix, name);
-            return $"[![NuGet package status](https://img.shields.io/nuget/v/{prefix}.{name}.svg?label=NuGet&style={style})]({GetNuGetLinkUrl(fullName)})";
-        }
-
         private static string GetNuGetLink(string name, bool useUrlAsName = false)
             => GetNuGetLinkComposed(GetNuGetLinkUrl(name), useUrlAsName);
 
@@ -99,8 +68,5 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.Common.Files
 
         private static string GetNuGetLinkName(string url, bool useUrlAsName)
             => useUrlAsName ? url : NuGet;
-
-        private static string GetNuGetLinkUrl(string name)
-            => $"https://www.nuget.org/packages/{name}";
     }
 }

@@ -5,11 +5,10 @@ using DevOps.Primitives.VisualStudio.Projects.Helpers.DotNetCore;
 using DevOps.Primitives.VisualStudio.Solutions;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using static DevOps.Primitives.SourceGraph.Helpers.Common.Files.ReadmeFile;
 using static DevOps.Primitives.SourceGraph.Helpers.Common.FileSets.CommonGitRepoFiles;
 using static DevOps.Primitives.SourceGraph.Helpers.DotNetCore.Common.Files.CSharpCode;
 using static DevOps.Primitives.SourceGraph.Helpers.DotNetCore.Common.Files.CsprojFile;
-using static DevOps.Primitives.SourceGraph.Helpers.DotNetCore.Common.Files.ReadmeFile;
 using static DevOps.Primitives.SourceGraph.Helpers.DotNetCore.Common.Files.SlnFile;
 
 namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.Common.FileSets
