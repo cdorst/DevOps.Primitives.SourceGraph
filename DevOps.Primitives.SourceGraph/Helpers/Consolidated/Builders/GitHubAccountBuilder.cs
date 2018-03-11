@@ -41,7 +41,7 @@ namespace DevOps.Primitives.SourceGraph.Helpers.Consolidated.Builders
             IEnumerable<Code> code,
             IEnumerable<Entity> entities,
             IEnumerable<Metapackage> metapackages)
-            => GitHub(account, code)
+            => GitHub(account, code, entities)
                 .WithRepositories(
                     metapackages?.Select(package => package.GetBuilder()).ToArray() ?? Empty);
     }
