@@ -9,6 +9,7 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.Common.Files
 {
     public static class ReadmeFile
     {
+        private const string BadgeStyle = "for-the-badge"; // https://shields.io
         private const string NuGet = nameof(NuGet);
 
         public static RepositoryFile Readme(
@@ -21,8 +22,12 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.Common.Files
             {
                 var prefix = nuGetPackageInfo.PackageId.Split('.').First();
                 var prefixLower = prefix.ToLower();
+                var fullName = $"{prefix}.{name}";
                 var dashName = name.Replace('.', '-').ToLower();
-                content.AppendLine().AppendLine($"[![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/{prefix}/{name})](https://ci.appveyor.com/project/{prefixLower}/{dashName})").AppendLine();
+                content.AppendLine()
+                    .AppendLine($"[![AppVeyor build status](https://img.shields.io/appveyor/ci/{prefixLower}/{dashName}/master.svg?label=AppVeyor&style={BadgeStyle})](https://ci.appveyor.com/project/{prefixLower}/{dashName})")
+                    .AppendLine($"[![NuGet package status](https://img.shields.io/nuget/v/{prefix}.{name}.svg?label=NuGet&style={BadgeStyle})]({GetNuGetLinkUrl(fullName)})")
+                    .AppendLine();
                 content.AppendLine("## Description")
                     .AppendLine().AppendLine(nuGetPackageInfo.Description).AppendLine();
                 if (Any(nuGetReferences))
@@ -34,7 +39,6 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.Common.Files
                         .AppendLine($"{dependency.Include.Value} | {dependency.Version.Value} | {GetLinks(dependency, prefix)}");
                     content.AppendLine();
                 }
-                var fullName = $"{prefix}.{name}";
                 content.AppendLine("## NuGet")
                     .AppendLine().AppendLine($"This project is published as a NuGet package at {GetNuGetLink(fullName, true)}").AppendLine();
                 content.AppendLine("## Version")
