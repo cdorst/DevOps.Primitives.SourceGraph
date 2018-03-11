@@ -2,7 +2,7 @@
 
 namespace DevOps.Primitives.SourceGraph.Helpers.Common.Files
 {
-    internal static class ReamdmeFileHelper
+    public static class ReamdmeFileHelper
     {
         public const string ReadmeFileName = "README.md";
 
