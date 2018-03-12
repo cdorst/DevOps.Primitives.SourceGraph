@@ -9,6 +9,7 @@ namespace DevOps.Primitives.SourceGraph.Helpers.Common.Files
         public static string GetAppVeyorBadge(string prefix, string name, string style = BadgeStyleLarge)
         {
             var dashName = name.Replace('.', '-').ToLower();
+            if (dashName.Length > 50) dashName = dashName.Substring(0, 50);
             var prefixLower = prefix.ToLower();
             return $"[![AppVeyor build status](https://img.shields.io/appveyor/ci/{prefixLower}/{dashName}.svg?label=AppVeyor&style={style})](https://ci.appveyor.com/project/{prefixLower}/{dashName})";
         }
