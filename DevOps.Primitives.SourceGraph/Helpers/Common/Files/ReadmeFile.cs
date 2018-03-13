@@ -22,10 +22,9 @@ namespace DevOps.Primitives.SourceGraph.Helpers.Common.Files
             if (nuGetPackageInfo != null)
             {
                 var prefix = nuGetPackageInfo.PackageId.Split('.').First();
-                var fullName = GetFullName(prefix, name);
                 content.AppendLine()
                     .AppendLine(GetAppVeyorBadge(prefix, name))
-                    .AppendLine(GetNuGetBadge(prefix, name, fullName))
+                    .AppendLine(GetNuGetBadge(prefix, name))
                     .AppendLine();
                 content.AppendLine("## Description")
                     .AppendLine().AppendLine(nuGetPackageInfo.Description).AppendLine();
@@ -39,7 +38,7 @@ namespace DevOps.Primitives.SourceGraph.Helpers.Common.Files
                     content.AppendLine();
                 }
                 content.AppendLine("## NuGet")
-                    .AppendLine().AppendLine($"This project is published as a NuGet package at {GetNuGetLink(fullName, true)}").AppendLine();
+                    .AppendLine().AppendLine($"This project is published as a NuGet package at {GetNuGetLink(prefix, name, true)}").AppendLine();
                 content.AppendLine("## Version")
                     .AppendLine().AppendLine(nuGetPackageInfo.Version).AppendLine();
                 content.AppendLine("## Metaproject")
@@ -64,8 +63,8 @@ namespace DevOps.Primitives.SourceGraph.Helpers.Common.Files
                 : $"[![NuGet package status](https://img.shields.io/nuget/v/{name}.svg?label=NuGet&style={ReadmeFileBadgeStyles.BadgeStyleSmall})]({GetNuGetLinkUrl(name)})";
         }
 
-        private static string GetNuGetLink(string name, bool useUrlAsName = false)
-            => GetNuGetLinkComposed(GetNuGetLinkUrl(name), useUrlAsName);
+        private static string GetNuGetLink(string prefix, string name, bool useUrlAsName = false)
+            => GetNuGetLinkComposed(GetNuGetLinkUrl(GetFullName(prefix, name)), useUrlAsName);
 
         private static string GetNuGetLinkComposed(string url, bool useUrlAsName)
             => $"[{GetNuGetLinkName(url, useUrlAsName)}]({url})";

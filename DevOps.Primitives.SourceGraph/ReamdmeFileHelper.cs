@@ -15,14 +15,14 @@ namespace DevOps.Primitives.SourceGraph.Helpers.Common.Files
         }
 
         public static string GetBadges(string prefix, string repoName, string style = BadgeStyleSmall)
-            => $"{GetAppVeyorBadge(prefix, repoName, style)} {GetNuGetBadge(prefix, repoName, null, style)}";
+            => $"{GetAppVeyorBadge(prefix, repoName, style)} {GetNuGetBadge(prefix, repoName, style)}";
 
         public static string GetFullName(string prefix, string name) => $"{prefix}.{name}";
 
-        public static string GetNuGetBadge(string prefix, string name, string fullName = null, string style = BadgeStyleLarge)
+        public static string GetNuGetBadge(string prefix, string name, string style = BadgeStyleLarge)
         {
-            if (string.IsNullOrEmpty(fullName)) fullName = GetFullName(prefix, name);
-            return $"[![NuGet package status](https://img.shields.io/nuget/v/{prefix}.{name}.svg?label=NuGet&style={style})]({GetNuGetLinkUrl(fullName)})";
+            var fullName = GetFullName(prefix, name);
+            return $"[![NuGet package status](https://img.shields.io/nuget/v/{fullName}.svg?label=NuGet&style={style})]({GetNuGetLinkUrl(fullName)})";
         }
 
         public static string GetNuGetLinkUrl(string name)
