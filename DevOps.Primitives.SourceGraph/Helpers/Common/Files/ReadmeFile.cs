@@ -20,11 +20,23 @@ namespace DevOps.Primitives.SourceGraph.Helpers.Common.Files
             IDictionary<string, string> environmentVariables = null)
         {
             var content = new StringBuilder($"# {name}").AppendLine();
+            var prefix = string.Empty;
+            var hasPackageInfo = nuGetPackageInfo != null;
+            if (hasPackageInfo)
+            {
+                prefix = nuGetPackageInfo.PackageId.Split('.').First();
+                content.AppendLine()
+                    .AppendLine(GetAppVeyorBadge(prefix, name))
+                    .AppendLine(GetNuGetBadge(prefix, name))
+                    .AppendLine();
+            }
             if (Any(environmentVariables))
             {
-                var plural = environmentVariables.Count > 1 ? "s" : string.Empty;
+                var many = environmentVariables.Count > 1;
+                var plural = many ? "s" : string.Empty;
+                var thisThese = many ? "these" : "this";
                 content.AppendLine("## Environment Variables")
-                    .AppendLine().AppendLine($"This repository's code depend{plural} on the following environment variable{plural}:").AppendLine();
+                    .AppendLine().AppendLine($"This project depends on {thisThese} environment variable{plural}:").AppendLine();
                 content
                     .AppendLine("Name | Description")
                     .AppendLine("---- | -----------");
@@ -34,11 +46,6 @@ namespace DevOps.Primitives.SourceGraph.Helpers.Common.Files
             }
             if (nuGetPackageInfo != null)
             {
-                var prefix = nuGetPackageInfo.PackageId.Split('.').First();
-                content.AppendLine()
-                    .AppendLine(GetAppVeyorBadge(prefix, name))
-                    .AppendLine(GetNuGetBadge(prefix, name))
-                    .AppendLine();
                 content.AppendLine("## Description")
                     .AppendLine().AppendLine(nuGetPackageInfo.Description).AppendLine();
                 if (Any(nuGetReferences))
