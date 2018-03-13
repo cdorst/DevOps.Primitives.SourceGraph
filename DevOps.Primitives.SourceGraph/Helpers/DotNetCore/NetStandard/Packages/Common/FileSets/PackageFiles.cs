@@ -21,7 +21,7 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.NetStandard.Packages.
                 nuGetReferences,
                 packageSpecification.GetPackageInfo())
                 .Concat(
-                    NuGetFiles(packageCacheUri, packageSpecification.NamespacePrefix, authorEmail, appveyorAzureStorageSecret));
+                    NuGetFiles(packageCacheUri, packageSpecification.NamespacePrefix, authorEmail, appveyorAzureStorageSecret, packageSpecification.Version));
 
 
         public static IEnumerable<RepositoryFile> Package(
@@ -37,7 +37,7 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.NetStandard.Packages.
                 packageSpecification.GetPackageInfo(),
                 types)
                 .Concat(
-                    NuGetFiles(packageCacheUri, packageSpecification.NamespacePrefix, authorEmail, appveyorAzureStorageSecret));
+                    NuGetFiles(packageCacheUri, packageSpecification.NamespacePrefix, authorEmail, appveyorAzureStorageSecret, packageSpecification.Version));
 
         public static IEnumerable<RepositoryFile> Package(
             NuGetPackageSpecification packageSpecification,
@@ -52,11 +52,11 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.NetStandard.Packages.
                 packageSpecification.GetPackageInfo(),
                 types)
                 .Concat(
-                    NuGetFiles(packageCacheUri, packageSpecification.NamespacePrefix, authorEmail, appveyorAzureStorageSecret));
+                    NuGetFiles(packageCacheUri, packageSpecification.NamespacePrefix, authorEmail, appveyorAzureStorageSecret, packageSpecification.Version));
 
-        private static IEnumerable<RepositoryFile> NuGetFiles(string packageCacheUri, string namespacePrefix, string authorEmail, string appveyorAzureStorageSecret)
+        private static IEnumerable<RepositoryFile> NuGetFiles(string packageCacheUri, string namespacePrefix, string authorEmail, string appveyorAzureStorageSecret, string version)
         {
-            yield return AppveyorYml(packageCacheUri, namespacePrefix, authorEmail, appveyorAzureStorageSecret);
+            yield return AppveyorYml(packageCacheUri, namespacePrefix, authorEmail, appveyorAzureStorageSecret, version);
             yield return NuGetConfig();
         }
     }
