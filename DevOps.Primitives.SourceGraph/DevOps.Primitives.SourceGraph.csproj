@@ -19,8 +19,4 @@
     <PackageReference Include="CDorst.DevOps.Primitives.VisualStudio.Solutions.Helpers.VisualStudio15" Version="1.2.3" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Helpers\DotNetCore\Common\EnvironmentVariables\" />
-  </ItemGroup>
-
 </Project>
