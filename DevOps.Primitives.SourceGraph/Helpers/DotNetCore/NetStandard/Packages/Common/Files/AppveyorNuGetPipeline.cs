@@ -3,9 +3,10 @@
     public class AppveyorNuGetPipeline
     {
         private const string CacheDirectory = @"c:\projects\nuget\cache";
-        private const string ParentDirectory = @"c:\projects\nuget";
-        private const string ToolsDirectory = @"c:\projects\nuget\tools";
         private const string Name = "appveyor.yml";
+        private const string ParentDirectory = @"c:\projects\nuget";
+        private const string ToolsVersion = "10";
+        private static readonly string ToolsDirectory = $@"c:\projects\nuget\tools_{ToolsVersion}";
 
         public static RepositoryFile AppveyorYml(string nugetSource, string namespacePrefix, string notificationEmail, string appveyorAzureStorageSecret, string version)
             => new RepositoryFile(Name, $@"version: {version}-{{branch}}-{{build}}
@@ -16,7 +17,7 @@ environment:
   LOCAL_NUGET_SOURCE_PATH: {CacheDirectory}
 install:
 - ps: >-
-    $source = ""https://cdorst-dev.azureedge.net/build/nuget-tools_09.zip""
+    $source = ""https://cdorst-dev.azureedge.net/build/nuget-tools_{ToolsVersion}.zip""
 
     $toolsZip = ""{ToolsDirectory}.zip""
 
@@ -39,7 +40,9 @@ install:
     & cd ""$env:APPVEYOR_BUILD_FOLDER""
 
     & dotnet {ToolsDirectory}\before.dll {namespacePrefix} {CacheDirectory} {nugetSource}
-cache: {CacheDirectory}
+cache:
+- {CacheDirectory}
+- {ToolsDirectory}
 before_build:
 - cmd: dotnet restore
 build:
