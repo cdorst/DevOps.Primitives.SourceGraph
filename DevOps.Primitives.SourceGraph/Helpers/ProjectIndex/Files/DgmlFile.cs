@@ -24,7 +24,7 @@ namespace DevOps.Primitives.SourceGraph.Helpers.ProjectIndex.Files
                 content.AppendLine($"\t\t{GetNodeXml(node)}");
             content
                 .AppendLine("\t</Nodes>")
-                .AppendLine("\t</Links>");
+                .AppendLine("\t<Links>");
             foreach (var link in linkList
                 .OrderBy(l => l.Source).ThenBy(l => l.Target))
                 content.AppendLine($"\t\t{GetLinkXml(link)}");
