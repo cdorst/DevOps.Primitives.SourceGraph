@@ -10,7 +10,7 @@ namespace DevOps.Primitives.SourceGraph.Helpers.ProjectIndex.Files
 </DirectedGraph>
 ";
         private const string Head = @"<?xml version=""1.0"" encoding=""utf-8""?>
-<DirectedGraph Title=""DrivingTest"" xmlns=""http://schemas.microsoft.com/vs/2009/dgml"">
+<DirectedGraph Title=""SourceCodeRepositoryGraph"" xmlns=""http://schemas.microsoft.com/vs/2009/dgml"">
 	<Nodes>";
 
         public static RepositoryFile Dgml(IDictionary<string, IEnumerable<string>> nodesAndLinks)
