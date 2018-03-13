@@ -29,6 +29,8 @@ namespace DevOps.Primitives.SourceGraph.Helpers.Common.Files
                     .AppendLine(GetAppVeyorBadge(prefix, name))
                     .AppendLine(GetNuGetBadge(prefix, name))
                     .AppendLine();
+                content.AppendLine("## Description")
+                    .AppendLine().AppendLine(nuGetPackageInfo.Description).AppendLine();
             }
             if (Any(environmentVariables))
             {
@@ -46,8 +48,6 @@ namespace DevOps.Primitives.SourceGraph.Helpers.Common.Files
             }
             if (nuGetPackageInfo != null)
             {
-                content.AppendLine("## Description")
-                    .AppendLine().AppendLine(nuGetPackageInfo.Description).AppendLine();
                 if (Any(nuGetReferences))
                 {
                     content.AppendLine("## Dependencies").AppendLine()
@@ -62,7 +62,7 @@ namespace DevOps.Primitives.SourceGraph.Helpers.Common.Files
                 content.AppendLine("## Version")
                     .AppendLine().AppendLine(nuGetPackageInfo.Version).AppendLine();
                 content.AppendLine("## Metaproject")
-                    .AppendLine().AppendLine($"{name} is a component of a larger project distributed across multiple repositories on this GitHub account. Some of these component-projects (including this one) are created and maintained by robots. View the metaproject's component directory at [https://github.com/{prefix}/Project.Index](https://github.com/{prefix}/Project.Index)").AppendLine();
+                    .AppendLine().AppendLine($"{name} is maintained by robots and exists because of a declarative template metaproject. View the metaproject's component directory at [https://github.com/{prefix}/Project.Index](https://github.com/{prefix}/Project.Index)").AppendLine();
             }
             return new RepositoryFile(ReadmeFileName, content.ToString());
         }
