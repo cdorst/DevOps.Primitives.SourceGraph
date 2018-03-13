@@ -16,9 +16,22 @@ namespace DevOps.Primitives.SourceGraph.Helpers.Common.Files
         public static RepositoryFile Readme(
             string name,
             IEnumerable<NuGetReference> nuGetReferences,
-            NuGetPackageInfo nuGetPackageInfo)
+            NuGetPackageInfo nuGetPackageInfo,
+            IDictionary<string, string> environmentVariables = null)
         {
             var content = new StringBuilder($"# {name}").AppendLine();
+            if (Any(environmentVariables))
+            {
+                var plural = environmentVariables.Count > 1 ? "s" : string.Empty;
+                content.AppendLine("## Environment Variables")
+                    .AppendLine().AppendLine($"This repository's code depend{plural} on the following environment variable{plural}:").AppendLine();
+                content
+                    .AppendLine("Name | Description")
+                    .AppendLine("---- | -----------");
+                foreach (var variable in environmentVariables) content
+                    .AppendLine($"{variable.Key} | {variable.Value}");
+                content.AppendLine();
+            }
             if (nuGetPackageInfo != null)
             {
                 var prefix = nuGetPackageInfo.PackageId.Split('.').First();
