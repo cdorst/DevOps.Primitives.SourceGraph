@@ -8,7 +8,7 @@
         private const string Name = "appveyor.yml";
 
         public static RepositoryFile AppveyorYml(string nugetSource, string namespacePrefix, string notificationEmail, string appveyorAzureStorageSecret, string version)
-            => new RepositoryFile(Name, $@"version: {{version}}-{{branch}}.{{build}}
+            => new RepositoryFile(Name, $@"version: {version}-{{branch}}.{{build}}
 image: Visual Studio 2017
 environment:
   AZURE_STORAGE_CONNECTION_STRING:
