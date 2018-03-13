@@ -30,11 +30,13 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.NetStandard.Packages.
             string packageCacheUri,
             string appveyorAzureStorageSecret,
             IEnumerable<NuGetReference> nuGetReferences = null,
+            IDictionary<string, string> environmentVariables = null,
             params TypeDeclaration[] types)
             => NetStandardRepo(
                 packageSpecification.Name,
                 nuGetReferences,
                 packageSpecification.GetPackageInfo(),
+                environmentVariables,
                 types)
                 .Concat(
                     NuGetFiles(packageCacheUri, packageSpecification.NamespacePrefix, authorEmail, appveyorAzureStorageSecret, packageSpecification.Version));
@@ -45,12 +47,14 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.NetStandard.Packages.
             string packageCacheUri,
             string appveyorAzureStorageSecret,
             IEnumerable<NuGetReference> nuGetReferences = null,
-            params RepositoryFile[] types)
+            IDictionary<string, string> environmentVariables = null,
+            params RepositoryFile[] files)
             => NetStandardRepo(
                 packageSpecification.Name,
                 nuGetReferences,
                 packageSpecification.GetPackageInfo(),
-                types)
+                environmentVariables,
+                files)
                 .Concat(
                     NuGetFiles(packageCacheUri, packageSpecification.NamespacePrefix, authorEmail, appveyorAzureStorageSecret, packageSpecification.Version));
 

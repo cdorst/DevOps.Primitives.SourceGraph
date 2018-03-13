@@ -8,16 +8,18 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.NetStandard.Packages.
     {
         public static Func<GitHubAccount, Repository> Code(
             CodeTypeSpecification codeTypeSpecification,
-            List<NuGetReference> dependencies)
+            List<NuGetReference> dependencies,
+            IDictionary<string, string> environmentVariables = null)
             => account
-                => PackageRepositories.Code(codeTypeSpecification, dependencies, account);
+                => PackageRepositories.Code(codeTypeSpecification, dependencies, account, environmentVariables);
 
         public static Func<GitHubAccount, Repository> Metapackage(
             string projectName,
             string description,
             string version,
-            List<NuGetReference> dependencies)
+            List<NuGetReference> dependencies,
+            IDictionary<string, string> environmentVariables = null)
             => account
-                => PackageRepositories.Metapackage(projectName, description, version, dependencies, account);
+                => PackageRepositories.Metapackage(projectName, description, version, dependencies, account, environmentVariables);
     }
 }

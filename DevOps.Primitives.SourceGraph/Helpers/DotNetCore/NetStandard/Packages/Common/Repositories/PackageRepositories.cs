@@ -10,14 +10,17 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.NetStandard.Packages.
 {
     public static class PackageRepositories
     {
-        public static Repository Code(CodeTypeSpecification specification, List<NuGetReference> dependencies, GitHubAccount account)
+        public static Repository Code(CodeTypeSpecification specification, List<NuGetReference> dependencies, GitHubAccount account,
+            IDictionary<string, string> environmentVariables = null)
             => Code(new CodePackageSpecification(specification, dependencies, account));
 
-        public static Repository Code(CodePackageSpecification specification)
+        public static Repository Code(CodePackageSpecification specification,
+            IDictionary<string, string> environmentVariables = null)
             => Code(specification.Code.Code, specification.Package);
 
-        public static Repository Code(InterfacePackageSpecification specification, PackageRepositorySpecification package)
-            => specification is IClassPackageSpecification
+        public static Repository Code(InterfacePackageSpecification specification, PackageRepositorySpecification package,
+            IDictionary<string, string> environmentVariables = null)
+            => specification is ClassPackageSpecification
                 ? SingleClass(package, specification as ClassPackageSpecification)
                 : SingleInterface(package, specification);
 
@@ -26,15 +29,17 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.NetStandard.Packages.
             string description,
             string version,
             List<NuGetReference> dependencies,
-            GitHubAccount account)
+            GitHubAccount account,
+            IDictionary<string, string> environmentVariables = null)
         {
             var pkg = new PackageRepositorySpecification(account, projectName, version, description, dependencies);
             return new Repository(projectName, description, null,
                 new RepositoryFileList(
-                    Package(pkg.PackageSpecification, pkg.AuthorEmail, pkg.PackageCacheUri, pkg.AppveyorAzureStorageSecret, dependencies).ToArray()));
+                    Package(pkg.PackageSpecification, pkg.AuthorEmail, pkg.PackageCacheUri, pkg.AppveyorAzureStorageSecret, dependencies, environmentVariables, files: null).ToArray()));
         }
 
-        public static Repository SingleClass(PackageRepositorySpecification package, ClassPackageSpecification specification)
+        public static Repository SingleClass(PackageRepositorySpecification package, ClassPackageSpecification specification,
+            IDictionary<string, string> environmentVariables = null)
             => specification.Static
                 ? SingleStaticClass(
                     specification.TypeName,
@@ -43,6 +48,7 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.NetStandard.Packages.
                     package.AuthorEmail,
                     package.PackageCacheUri,
                     package.Dependencies,
+                    environmentVariables,
                     specification.UsingDirectiveList,
                     specification.DocumentationCommentList,
                     specification.AttributeListCollection,
@@ -61,6 +67,7 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.NetStandard.Packages.
                     package.AuthorEmail,
                     package.PackageCacheUri,
                     package.Dependencies,
+                    environmentVariables,
                     specification.UsingDirectiveList,
                     specification.DocumentationCommentList,
                     specification.AttributeListCollection,
@@ -80,6 +87,7 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.NetStandard.Packages.
             string authorEmail,
             string packageCacheUri,
             IEnumerable<NuGetReference> nuGetReferences = null,
+            IDictionary<string, string> environmentVariables = null,
             UsingDirectiveList usingDirectiveList = null, DocumentationCommentList documentationCommentList = null, AttributeListCollection attributeListCollection = null, TypeParameterList typeParameterList = null, ConstraintClauseList constraintClauseList = null, BaseList baseList = null, ConstructorList constructorList = null, FieldList fieldList = null, MethodList methodList = null, PropertyList propertyList = null, Finalizer finalizer = null)
             => SingleType(
                 packageSpecification,
@@ -110,6 +118,7 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.NetStandard.Packages.
             string authorEmail,
             string packageCacheUri,
             IEnumerable<NuGetReference> nuGetReferences = null,
+            IDictionary<string, string> environmentVariables = null,
             UsingDirectiveList usingDirectiveList = null, DocumentationCommentList documentationCommentList = null, AttributeListCollection attributeListCollection = null, TypeParameterList typeParameterList = null, ConstraintClauseList constraintClauseList = null, BaseList baseList = null, ConstructorList constructorList = null, FieldList fieldList = null, MethodList methodList = null, PropertyList propertyList = null, Finalizer finalizer = null)
             => SingleType(
                 packageSpecification,
@@ -133,7 +142,8 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.NetStandard.Packages.
                     finalizer),
                 nuGetReferences);
 
-        public static Repository SingleInterface(PackageRepositorySpecification package, InterfacePackageSpecification specification)
+        public static Repository SingleInterface(PackageRepositorySpecification package, InterfacePackageSpecification specification,
+            IDictionary<string, string> environmentVariables = null)
             => SingleInterface(
                 specification.TypeName,
                 package.PackageSpecification,
@@ -141,6 +151,7 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.NetStandard.Packages.
                 package.AuthorEmail,
                 package.PackageCacheUri,
                 package.Dependencies,
+                environmentVariables,
                 specification.UsingDirectiveList,
                 specification.DocumentationCommentList,
                 specification.AttributeListCollection,
@@ -157,6 +168,7 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.NetStandard.Packages.
             string authorEmail,
             string packageCacheUri,
             IEnumerable<NuGetReference> nuGetReferences = null,
+            IDictionary<string, string> environmentVariables = null,
             UsingDirectiveList usingDirectiveList = null, DocumentationCommentList documentationCommentList = null, AttributeListCollection attributeListCollection = null, TypeParameterList typeParameterList = null, ConstraintClauseList constraintClauseList = null, BaseList baseList = null, MethodList methodList = null, PropertyList propertyList = null)
             => SingleType(
                 packageSpecification,
@@ -183,9 +195,10 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.NetStandard.Packages.
             string authorEmail,
             string packageCacheUri,
             TypeDeclaration type,
-            IEnumerable<NuGetReference> nuGetReferences = null)
+            IEnumerable<NuGetReference> nuGetReferences = null,
+            IDictionary<string, string> environmentVariables = null)
             => new Repository(packageSpecification.Name, packageSpecification.Description,
-                nuGetReferences?.GetSameAccountNuGetDependencies(packageSpecification.NamespacePrefix), new RepositoryFileList(Package(packageSpecification, authorEmail, packageCacheUri, appveyorAzureStorageSecret, nuGetReferences, type).ToArray()));
+                nuGetReferences?.GetSameAccountNuGetDependencies(packageSpecification.NamespacePrefix), new RepositoryFileList(Package(packageSpecification, authorEmail, packageCacheUri, appveyorAzureStorageSecret, nuGetReferences, environmentVariables, type).ToArray()));
 
         public static Repository SingleType(
             NuGetPackageSpecification packageSpecification,
@@ -193,9 +206,10 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.NetStandard.Packages.
             string authorEmail,
             string packageCacheUri,
             RepositoryFile type,
-            IEnumerable<NuGetReference> nuGetReferences = null)
+            IEnumerable<NuGetReference> nuGetReferences = null,
+            IDictionary<string, string> environmentVariables = null)
             => new Repository(packageSpecification.Name, packageSpecification.Description,
-                nuGetReferences?.GetSameAccountNuGetDependencies(packageSpecification.NamespacePrefix), new RepositoryFileList(Package(packageSpecification, authorEmail, packageCacheUri, appveyorAzureStorageSecret, nuGetReferences, type).ToArray()));
+                nuGetReferences?.GetSameAccountNuGetDependencies(packageSpecification.NamespacePrefix), new RepositoryFileList(Package(packageSpecification, authorEmail, packageCacheUri, appveyorAzureStorageSecret, nuGetReferences, environmentVariables, type).ToArray()));
 
         public static Repository SingleType(
             PackageRepositorySpecification specification,
