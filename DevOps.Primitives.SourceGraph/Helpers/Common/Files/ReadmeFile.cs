@@ -29,7 +29,7 @@ namespace DevOps.Primitives.SourceGraph.Helpers.Common.Files
                     .AppendLine("Name | Description")
                     .AppendLine("---- | -----------");
                 foreach (var variable in environmentVariables) content
-                    .AppendLine($"{variable.Key} | {variable.Value}");
+                    .AppendLine($"`{variable.Key}` | {variable.Value}");
                 content.AppendLine();
             }
             if (nuGetPackageInfo != null)
