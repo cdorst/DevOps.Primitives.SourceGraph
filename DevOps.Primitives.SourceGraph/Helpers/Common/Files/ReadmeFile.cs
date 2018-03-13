@@ -25,7 +25,7 @@ namespace DevOps.Primitives.SourceGraph.Helpers.Common.Files
                 var fullName = GetFullName(prefix, name);
                 content.AppendLine()
                     .AppendLine(GetAppVeyorBadge(prefix, name))
-                    .AppendLine(GetNuGetBadge(name, prefix, fullName))
+                    .AppendLine(GetNuGetBadge(prefix, name, fullName))
                     .AppendLine();
                 content.AppendLine("## Description")
                     .AppendLine().AppendLine(nuGetPackageInfo.Description).AppendLine();
