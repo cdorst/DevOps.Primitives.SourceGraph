@@ -22,8 +22,7 @@ namespace DevOps.Primitives.SourceGraph.Helpers.ProjectIndex.Files
                 content.AppendLine("## Repositories").AppendLine()
                     .AppendLine("Name | Status")
                     .AppendLine("---- | ------");
-                var prefixSubStrIdx = prefix.Length + 2;
-                foreach (var repository in repositories.Select(repo => repo.Substring(prefixSubStrIdx))) content
+                foreach (var repository in repositories.Select(repo => repo.Substring(prefix.Length + 1))) content
                     .AppendLine($"[{repository}](https://github.com/{prefix}/{repository}) | {GetBadges(prefix, repository)}");
                 content.AppendLine();
             }
