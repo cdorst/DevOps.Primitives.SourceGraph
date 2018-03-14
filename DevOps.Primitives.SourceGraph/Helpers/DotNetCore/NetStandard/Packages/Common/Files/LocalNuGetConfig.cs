@@ -8,7 +8,8 @@
         <add key=""Local package cache"" value=""%LOCAL_NUGET_SOURCE_PATH%"" />
         <add key=""NuGet official package source"" value=""https://api.nuget.org/v3/index.json"" />
     </packageSources>
-</configuration>";
+</configuration>
+";
         private const string Name = "nuget.config";
 
         public static RepositoryFile NuGetConfig()
