@@ -5,9 +5,10 @@ namespace DevOps.Primitives.SourceGraph.Helpers.Common.Repositories
 {
     public static class FileRepositories
     {
-        public static Repository Repository(string name, string description, params RepositoryFile[] files)
+        public static Repository Repository(string name, string description, string version, params RepositoryFile[] files)
             => new Repository(name, description, null,
                 new RepositoryFileList(
-                    StandardGitRepo().Concat(files).ToArray()));
+                    StandardGitRepo().Concat(files).ToArray()),
+                version);
     }
 }
