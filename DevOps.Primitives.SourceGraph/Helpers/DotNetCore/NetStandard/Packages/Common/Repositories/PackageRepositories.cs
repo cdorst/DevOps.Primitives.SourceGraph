@@ -2,6 +2,7 @@
 using DevOps.Primitives.NuGet;
 using DevOps.Primitives.SourceGraph.Helpers.DotNetCore.Common.Files;
 using DevOps.Primitives.SourceGraph.Helpers.DotNetCore.NetStandard.Packages.Common.FileSets;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using static DevOps.Primitives.SourceGraph.Helpers.DotNetCore.NetStandard.Packages.Common.FileSets.PackageFiles;
@@ -197,8 +198,12 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.NetStandard.Packages.
             TypeDeclaration type,
             IEnumerable<NuGetReference> nuGetReferences = null,
             IDictionary<string, string> environmentVariables = null)
-            => new Repository(packageSpecification.Name, packageSpecification.Description,
-                nuGetReferences?.GetSameAccountNuGetDependencies(packageSpecification.NamespacePrefix), new RepositoryFileList(Package(packageSpecification, authorEmail, packageCacheUri, appveyorAzureStorageSecret, nuGetReferences, environmentVariables, type).ToArray()));
+            => new Repository(
+                packageSpecification?.Name ?? throw new ArgumentNullException(nameof(packageSpecification)),
+                packageSpecification.Description,
+                nuGetReferences?.GetSameAccountNuGetDependencies(packageSpecification.NamespacePrefix),
+                new RepositoryFileList(
+                    Package(packageSpecification, authorEmail, packageCacheUri, appveyorAzureStorageSecret, nuGetReferences, environmentVariables, type).ToArray()));
 
         public static Repository SingleType(
             NuGetPackageSpecification packageSpecification,
@@ -208,14 +213,19 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.NetStandard.Packages.
             RepositoryFile type,
             IEnumerable<NuGetReference> nuGetReferences = null,
             IDictionary<string, string> environmentVariables = null)
-            => new Repository(packageSpecification.Name, packageSpecification.Description,
-                nuGetReferences?.GetSameAccountNuGetDependencies(packageSpecification.NamespacePrefix), new RepositoryFileList(Package(packageSpecification, authorEmail, packageCacheUri, appveyorAzureStorageSecret, nuGetReferences, environmentVariables, type).ToArray()));
+            => new Repository(
+                packageSpecification?.Name ?? throw new ArgumentNullException(nameof(packageSpecification)),
+                packageSpecification.Description,
+                nuGetReferences?.GetSameAccountNuGetDependencies(packageSpecification.NamespacePrefix),
+                new RepositoryFileList(
+                    Package(packageSpecification, authorEmail, packageCacheUri, appveyorAzureStorageSecret, nuGetReferences, environmentVariables, type).ToArray()));
 
         public static Repository SingleType(
             PackageRepositorySpecification specification,
             TypeDeclaration type)
             => SingleType(
-                specification.PackageSpecification,
+                (specification ?? throw new ArgumentNullException(nameof(specification)))
+                    .PackageSpecification ?? throw new ArgumentNullException("PackageSpecification"),
                 specification.AppveyorAzureStorageSecret,
                 specification.AuthorEmail,
                 specification.PackageCacheUri,
@@ -226,7 +236,8 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.NetStandard.Packages.
             PackageRepositorySpecification specification,
             RepositoryFile type)
             => SingleType(
-                specification.PackageSpecification,
+                (specification ?? throw new ArgumentNullException(nameof(specification)))
+                    .PackageSpecification ?? throw new ArgumentNullException("PackageSpecification"),
                 specification.AppveyorAzureStorageSecret,
                 specification.AuthorEmail,
                 specification.PackageCacheUri,

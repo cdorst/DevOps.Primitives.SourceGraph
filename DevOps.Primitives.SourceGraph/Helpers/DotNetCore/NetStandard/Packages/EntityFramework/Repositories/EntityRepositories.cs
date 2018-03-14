@@ -1,4 +1,5 @@
 ﻿using DevOps.Primitives.NuGet;
+using System;
 using System.Collections.Generic;
 using static DevOps.Primitives.CSharp.Helpers.EntityFramework.EntityDeclarations;
 using static DevOps.Primitives.SourceGraph.Helpers.DotNetCore.NetStandard.Packages.Common.Repositories.PackageRepositories;
@@ -10,15 +11,19 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.NetStandard.Packages.
     {
         public static Repository Entity(EntityPackageSpecification specification)
             => SingleType(
-                specification.RepositorySpecification,
-                GetFile(specification.EntityTypeSpecification));
+                (specification ?? throw new ArgumentNullException(nameof(specification)))
+                    .RepositorySpecification ?? throw new ArgumentNullException("RepositorySpecification"),
+                GetFile(specification.EntityTypeSpecification ?? throw new ArgumentNullException("EntityTypeSpecification")));
 
         public static Repository Entity(EntityTypeSpecification specification, List<NuGetReference> dependencies, GitHubAccount account)
-            => Entity(new EntityPackageSpecification(specification, dependencies, account));
+            => Entity(new EntityPackageSpecification(
+                specification ?? throw new ArgumentNullException(nameof(specification)),
+                dependencies,
+                account ?? throw new ArgumentNullException(nameof(account))));
 
         private static RepositoryFile GetFile(EntityTypeSpecification specification)
             => specification.Editable
-                ? Editable(specification.EntityDeclaration)
-                : Static(specification.EntityDeclaration);
+                ? Editable(specification.EntityDeclaration ?? throw new ArgumentNullException("EntityDeclaration"))
+                : Static(specification.EntityDeclaration ?? throw new ArgumentNullException("EntityDeclaration"));
     }
 }
