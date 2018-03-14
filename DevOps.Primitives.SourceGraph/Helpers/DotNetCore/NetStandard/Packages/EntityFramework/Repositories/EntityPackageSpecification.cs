@@ -12,7 +12,7 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.NetStandard.Packages.
         public EntityPackageSpecification(EntityTypeSpecification entityTypeSpecification, PackageRepositorySpecification repositorySpecification)
         {
             EntityTypeSpecification = entityTypeSpecification;
-            RepositorySpecification = RepositorySpecification;
+            RepositorySpecification = repositorySpecification;
         }
 
         public EntityPackageSpecification(EntityTypeSpecification entityTypeSpecification, List<NuGetReference> dependencies, GitHubAccount account)
