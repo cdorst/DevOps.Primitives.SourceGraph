@@ -34,6 +34,7 @@ namespace DevOps.Primitives.SourceGraph.Helpers.Consolidated.Builders
             IEnumerable<Entity> entities)
             => GitHub(account, code)
                 .WithRepositories(
+                    // split into dbcontext etc. types here
                     entities?.Select(entity => entity.GetBuilder()).ToArray() ?? Empty);
 
         public static GitHubAccount GitHub(

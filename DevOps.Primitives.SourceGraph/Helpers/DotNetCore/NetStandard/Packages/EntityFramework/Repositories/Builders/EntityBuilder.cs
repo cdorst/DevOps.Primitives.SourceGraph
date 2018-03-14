@@ -11,6 +11,8 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.NetStandard.Packages.
             List<NuGetReference> dependencies)
             => account
                 => EntityRepositories.Entity(
-                    entityTypeSpecification, dependencies, account);
+                    entityTypeSpecification ?? throw new ArgumentNullException(nameof(entityTypeSpecification)),
+                    dependencies,
+                    account ?? throw new ArgumentNullException(nameof(account)));
     }
 }

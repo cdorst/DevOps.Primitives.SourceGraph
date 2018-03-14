@@ -1,5 +1,6 @@
 ﻿using DevOps.Primitives.NuGet;
 using DevOps.Primitives.SourceGraph.Helpers.DotNetCore.NetStandard.Packages.Common.FileSets;
+using System;
 using System.Collections.Generic;
 
 namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.NetStandard.Packages.EntityFramework.Repositories
@@ -15,9 +16,9 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.NetStandard.Packages.
         }
 
         public EntityPackageSpecification(EntityTypeSpecification entityTypeSpecification, List<NuGetReference> dependencies, GitHubAccount account)
-            : this(entityTypeSpecification,
+            : this(entityTypeSpecification ?? throw new ArgumentNullException(nameof(entityTypeSpecification)),
                   new PackageRepositorySpecification(account,
-                      entityTypeSpecification.EntityDeclaration.Namespace,
+                      entityTypeSpecification.EntityDeclaration?.Namespace ?? throw new ArgumentNullException("EntityDeclaration"),
                       entityTypeSpecification.Version,
                       EntityDescriptionHelper.Description(
                           entityTypeSpecification.Editable,
