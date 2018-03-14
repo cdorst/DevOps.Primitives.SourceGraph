@@ -20,13 +20,13 @@ namespace DevOps.Primitives.SourceGraph.Helpers.Consolidated.Builders
             GitHubAccountSpecification account,
             IEnumerable<Code> code)
             => GitHub(account,
-                code?.Select(each => each.GetBuilder()));
+                code?.Select(each => each.GetBuilder()) ?? Empty);
 
         public static GitHubAccount GitHub(
             GitHubAccountSpecification account,
             IEnumerable<Entity> entities)
             => GitHub(account,
-                entities?.Select(entity => entity.GetBuilder()));
+                entities?.Select(entity => entity.GetBuilder()) ?? Empty);
 
         public static GitHubAccount GitHub(
             GitHubAccountSpecification account,
