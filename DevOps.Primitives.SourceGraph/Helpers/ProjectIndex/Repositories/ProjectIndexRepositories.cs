@@ -11,7 +11,6 @@ namespace DevOps.Primitives.SourceGraph.Helpers.ProjectIndex.Repositories
             => Repository(
                 "Project.Index",
                 "Metaproject directory for other repositories in this GitHub account",
-                "1.0.0",
                 Dgml(projectDirectory),
                 Readme(projectDirectory.Keys));
     }

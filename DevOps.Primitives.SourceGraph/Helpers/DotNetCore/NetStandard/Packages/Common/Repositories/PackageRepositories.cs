@@ -35,8 +35,7 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.NetStandard.Packages.
             var pkg = new PackageRepositorySpecification(account, projectName, version, description, dependencies);
             return new Repository(projectName, description, null,
                 new RepositoryFileList(
-                    Package(pkg.PackageSpecification, pkg.AuthorEmail, pkg.PackageCacheUri, pkg.AppveyorAzureStorageSecret, dependencies, environmentVariables, files: null).ToArray()),
-                version);
+                    Package(pkg.PackageSpecification, pkg.AuthorEmail, pkg.PackageCacheUri, pkg.AppveyorAzureStorageSecret, dependencies, environmentVariables, files: null).ToArray()));
         }
 
         public static Repository SingleClass(PackageRepositorySpecification package, ClassPackageSpecification specification,
@@ -199,8 +198,7 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.NetStandard.Packages.
             IEnumerable<NuGetReference> nuGetReferences = null,
             IDictionary<string, string> environmentVariables = null)
             => new Repository(packageSpecification.Name, packageSpecification.Description,
-                nuGetReferences?.GetSameAccountNuGetDependencies(packageSpecification.NamespacePrefix), new RepositoryFileList(Package(packageSpecification, authorEmail, packageCacheUri, appveyorAzureStorageSecret, nuGetReferences, environmentVariables, type).ToArray()),
-                packageSpecification.Version);
+                nuGetReferences?.GetSameAccountNuGetDependencies(packageSpecification.NamespacePrefix), new RepositoryFileList(Package(packageSpecification, authorEmail, packageCacheUri, appveyorAzureStorageSecret, nuGetReferences, environmentVariables, type).ToArray()));
 
         public static Repository SingleType(
             NuGetPackageSpecification packageSpecification,
@@ -211,8 +209,7 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.NetStandard.Packages.
             IEnumerable<NuGetReference> nuGetReferences = null,
             IDictionary<string, string> environmentVariables = null)
             => new Repository(packageSpecification.Name, packageSpecification.Description,
-                nuGetReferences?.GetSameAccountNuGetDependencies(packageSpecification.NamespacePrefix), new RepositoryFileList(Package(packageSpecification, authorEmail, packageCacheUri, appveyorAzureStorageSecret, nuGetReferences, environmentVariables, type).ToArray()),
-                packageSpecification.Version);
+                nuGetReferences?.GetSameAccountNuGetDependencies(packageSpecification.NamespacePrefix), new RepositoryFileList(Package(packageSpecification, authorEmail, packageCacheUri, appveyorAzureStorageSecret, nuGetReferences, environmentVariables, type).ToArray()));
 
         public static Repository SingleType(
             PackageRepositorySpecification specification,

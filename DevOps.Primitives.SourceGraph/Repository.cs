@@ -11,14 +11,13 @@ namespace DevOps.Primitives.SourceGraph
     public class Repository : IUniqueListRecord
     {
         public Repository() { }
-        public Repository(RepositoryNameDescription repositoryNameDescription, RepositoryContent repositoryContent, string version)
+        public Repository(RepositoryNameDescription repositoryNameDescription, RepositoryContent repositoryContent)
         {
             RepositoryNameDescription = repositoryNameDescription;
             RepositoryContent = repositoryContent;
-            Version = new AsciiStringReference(version);
         }
-        public Repository(string repositoryName, string repositoryDescription, AsciiStringReferenceList sameAccountPackageDependencyList, RepositoryFileList repositoryFileList, string version)
-            : this(new RepositoryNameDescription(repositoryName, repositoryDescription), new RepositoryContent(sameAccountPackageDependencyList, repositoryFileList), version)
+        public Repository(string repositoryName, string repositoryDescription, AsciiStringReferenceList sameAccountPackageDependencyList, RepositoryFileList repositoryFileList)
+            : this(new RepositoryNameDescription(repositoryName, repositoryDescription), new RepositoryContent(sameAccountPackageDependencyList, repositoryFileList))
         {
         }
 
@@ -35,11 +34,6 @@ namespace DevOps.Primitives.SourceGraph
         public RepositoryNameDescription RepositoryNameDescription { get; set; }
         [ProtoMember(5)]
         public int RepositoryNameDescriptionId { get; set; }
-
-        [ProtoMember(6)]
-        public AsciiStringReference Version { get; set; }
-        [ProtoMember(7)]
-        public int VersionId { get; set; }
 
         public string GetName()
             => RepositoryNameDescription.Name.Value;
