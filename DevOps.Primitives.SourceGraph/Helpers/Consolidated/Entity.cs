@@ -11,7 +11,7 @@ namespace DevOps.Primitives.SourceGraph.Helpers.Consolidated
     {
         public Entity(List<NuGetReference> dependencies, bool editable, string entityName, KeyType keyType, string projectName, List<EntityProperty> properties, int? typeId, string version)
         {
-            Dependencies = dependencies;
+            Dependencies = dependencies ?? new List<NuGetReference>();
             Editable = editable;
             EntityName = entityName;
             KeyType = keyType;
