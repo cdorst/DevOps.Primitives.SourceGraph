@@ -12,6 +12,7 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.NetStandard.Packages.
             ConstructorList = constructorList;
             FieldList = fieldList;
             Finalizer = finalizer;
+            Static = @static;
         }
         public ConstructorList ConstructorList { get; set; }
         public FieldList FieldList { get; set; }
