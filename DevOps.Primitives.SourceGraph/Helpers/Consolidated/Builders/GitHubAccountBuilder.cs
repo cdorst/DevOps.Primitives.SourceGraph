@@ -24,25 +24,9 @@ namespace DevOps.Primitives.SourceGraph.Helpers.Consolidated.Builders
 
         public static GitHubAccount GitHub(
             GitHubAccountSpecification account,
-            IEnumerable<Entity> entities)
-            => GitHub(account,
-                entities?.Select(entity => entity.GetBuilder()) ?? Empty);
-
-        public static GitHubAccount GitHub(
-            GitHubAccountSpecification account,
             IEnumerable<Code> code,
-            IEnumerable<Entity> entities)
-            => GitHub(account, code)
-                .WithRepositories(
-                    // split into dbcontext etc. types here
-                    entities?.Select(entity => entity.GetBuilder()).ToArray() ?? Empty);
-
-        public static GitHubAccount GitHub(
-            GitHubAccountSpecification account,
-            IEnumerable<Code> code,
-            IEnumerable<Entity> entities,
             IEnumerable<Metapackage> metapackages)
-            => GitHub(account, code, entities)
+            => GitHub(account, code)
                 .WithRepositories(
                     metapackages?.Select(package => package.GetBuilder()).ToArray() ?? Empty);
     }
