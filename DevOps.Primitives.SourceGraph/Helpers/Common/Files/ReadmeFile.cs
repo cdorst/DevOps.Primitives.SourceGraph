@@ -71,7 +71,7 @@ namespace DevOps.Primitives.SourceGraph.Helpers.Common.Files
         {
             var name = dependency.Include.Value;
             var external = !name.StartsWith($"{prefix}.");
-            return external ? name : $"[{name}](https://github.com/{prefix}/{name.Substring(prefix.Length + 2)})";
+            return external ? name : $"[{name}](https://github.com/{prefix}/{name.Substring(prefix.Length + 1)})";
         }
 
         private static string GetStatus(NuGetReference dependency, string prefix)
@@ -79,7 +79,7 @@ namespace DevOps.Primitives.SourceGraph.Helpers.Common.Files
             var name = dependency.Include.Value;
             var external = !name.StartsWith($"{prefix}.");
             return !external
-                ? GetBadges(prefix, name.Substring(prefix.Length + 2))
+                ? GetBadges(prefix, name.Substring(prefix.Length + 1))
                 : $"[![NuGet package status](https://img.shields.io/nuget/v/{name}.svg?label=NuGet&style={ReadmeFileBadgeStyles.BadgeStyleSmall})]({GetNuGetLinkUrl(name)})";
         }
 
