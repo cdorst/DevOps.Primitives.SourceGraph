@@ -2,8 +2,9 @@
 using ProtoBuf;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using static Common.Functions.CheckNullableEnumerationForAnyElements.NullableEnumerationAny;
 using System.Linq;
+using static Common.Functions.CheckNullableEnumerationForAnyElements.NullableEnumerationAny;
+using static System.IO.Path;
 
 namespace DevOps.Primitives.SourceGraph
 {
@@ -37,5 +38,12 @@ namespace DevOps.Primitives.SourceGraph
         public AsciiStringReferenceList PathParts { get; set; }
         [ProtoMember(5)]
         public int? PathPartsId { get; set; }
+
+        public string GetPathRelativeToRepositoryRoot()
+        {
+            var pathParts = PathParts?.GetAssociations().Select(a => a.GetRecord().Value);
+            var relativeDirectory = !Any(pathParts) ? string.Empty : Combine(pathParts.ToArray());
+            return Combine(relativeDirectory, Name.Value);
+        }
     }
 }

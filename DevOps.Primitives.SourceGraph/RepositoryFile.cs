@@ -36,5 +36,8 @@ namespace DevOps.Primitives.SourceGraph
         public UnicodeMaxStringReference Content { get; set; }
         [ProtoMember(5)]
         public int ContentId { get; set; }
+
+        public string GetPathRelativeToRepositoryRoot()
+            => FileName.GetPathRelativeToRepositoryRoot();
     }
 }

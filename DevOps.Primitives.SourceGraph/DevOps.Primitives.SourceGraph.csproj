@@ -10,7 +10,7 @@
     <Description>Contains structures for modeling source-code repositories under a GitHub account</Description>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>CDorst.DevOps.Primitives.SourceGraph</PackageId>
-    <Version>10.0.0</Version>
+    <Version>10.1.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
