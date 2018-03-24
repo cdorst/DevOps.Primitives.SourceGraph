@@ -16,8 +16,8 @@ namespace DevOps.Primitives.SourceGraph
             RepositoryNameDescription = repositoryNameDescription;
             RepositoryContent = repositoryContent;
         }
-        public Repository(string repositoryName, string repositoryDescription, AsciiStringReferenceList sameAccountPackageDependencyList, RepositoryFileList repositoryFileList)
-            : this(new RepositoryNameDescription(repositoryName, repositoryDescription), new RepositoryContent(sameAccountPackageDependencyList, repositoryFileList))
+        public Repository(string repositoryName, string repositoryDescription, string version, AsciiStringReferenceList sameAccountPackageDependencyList, RepositoryFileList repositoryFileList)
+            : this(new RepositoryNameDescription(repositoryName, repositoryDescription), new RepositoryContent(sameAccountPackageDependencyList, repositoryFileList, new AsciiStringReference(version)))
         {
         }
 

@@ -34,7 +34,7 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.NetStandard.Packages.
             IDictionary<string, string> environmentVariables = null)
         {
             var pkg = new PackageRepositorySpecification(account, projectName, version, description, dependencies);
-            return new Repository(projectName, description, null,
+            return new Repository(projectName, description, version, null,
                 new RepositoryFileList(
                     Package(pkg.PackageSpecification, pkg.AuthorEmail, pkg.PackageCacheUri, pkg.AppveyorAzureStorageSecret, dependencies, environmentVariables, files: null).ToArray()));
         }
@@ -201,6 +201,7 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.NetStandard.Packages.
             => new Repository(
                 packageSpecification?.Name ?? throw new ArgumentNullException(nameof(packageSpecification)),
                 packageSpecification.Description,
+                packageSpecification.Version,
                 nuGetReferences?.GetSameAccountNuGetDependencies(packageSpecification.NamespacePrefix),
                 new RepositoryFileList(
                     Package(packageSpecification, authorEmail, packageCacheUri, appveyorAzureStorageSecret, nuGetReferences, environmentVariables, type).ToArray()));
@@ -216,6 +217,7 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.NetStandard.Packages.
             => new Repository(
                 packageSpecification?.Name ?? throw new ArgumentNullException(nameof(packageSpecification)),
                 packageSpecification.Description,
+                packageSpecification.Version,
                 nuGetReferences?.GetSameAccountNuGetDependencies(packageSpecification.NamespacePrefix),
                 new RepositoryFileList(
                     Package(packageSpecification, authorEmail, packageCacheUri, appveyorAzureStorageSecret, nuGetReferences, environmentVariables, type).ToArray()));
