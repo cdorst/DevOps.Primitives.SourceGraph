@@ -2,6 +2,8 @@
 using DevOps.Primitives.Strings;
 using ProtoBuf;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.HashFunction.xxHash;
+using System.Text;
 
 namespace DevOps.Primitives.SourceGraph
 {
@@ -36,6 +38,11 @@ namespace DevOps.Primitives.SourceGraph
         public UnicodeMaxStringReference Content { get; set; }
         [ProtoMember(5)]
         public int ContentId { get; set; }
+
+        public string ComputeHash()
+            => xxHashFactory.Instance.Create()
+                .ComputeHash(Encoding.UTF8.GetBytes(Content.Value))
+                .AsHexString();
 
         public string GetPathRelativeToRepositoryRoot()
             => FileName.GetPathRelativeToRepositoryRoot();
