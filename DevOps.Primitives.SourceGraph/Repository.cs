@@ -37,5 +37,8 @@ namespace DevOps.Primitives.SourceGraph
 
         public string GetName()
             => RepositoryNameDescription.Name.Value;
+
+        public string GetVersion()
+            => RepositoryContent.Version.Value;
     }
 }
