@@ -5,7 +5,7 @@
         private const string CacheDirectory = @"c:\projects\nuget\cache";
         private const string Name = "appveyor.yml";
         private const string ParentDirectory = @"c:\projects\nuget";
-        private const string ToolsVersion = "10";
+        private const string ToolsVersion = "11";
         private static readonly string ToolsDirectory = $@"c:\projects\nuget\tools_{ToolsVersion}";
 
         public static RepositoryFile AppveyorYml(string nugetSource, string namespacePrefix, string notificationEmail, string appveyorAzureStorageSecret, string version)
