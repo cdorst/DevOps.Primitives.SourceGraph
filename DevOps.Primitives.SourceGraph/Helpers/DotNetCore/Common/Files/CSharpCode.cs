@@ -1,14 +1,20 @@
 ﻿using DevOps.Primitives.CSharp;
 using DevOps.Primitives.CSharp.Helpers.Common;
+using System.Collections.Generic;
+using System.Linq;
+using static System.Environment;
 
 namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.Common.Files
 {
     public static class CSharpCode
     {
+        private const string Separator = "; ";
+        private const char Tab = '\t';
+
         public static RepositoryFile Code(TypeDeclaration type, params string[] pathParts)
             => new RepositoryFile(
                 $"{type.Identifier.Name.Value}.cs",
-                type.ToString(),
+                FormatBlockStatements(type),
                 pathParts);
 
         public static RepositoryFile ProjectRootCode(TypeDeclaration type)
@@ -31,5 +37,30 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.Common.Files
             => Code(
                 Interfaces.Public(typeName, @namespace, usingDirectiveList, documentationCommentList, attributeListCollection, typeParameterList, constraintClauseList, baseList, methodList, propertyList),
                 projectName);
+
+        private static string FormatBlockStatements(TypeDeclaration type)
+        {
+            var contents = type.ToString();
+            if (!contents.Contains(Separator)) return contents;
+            var lines = contents.Split(new[] { NewLine }, System.StringSplitOptions.None);
+            var formattedLines = new List<string>();
+            foreach (var line in lines)
+            {
+                if (!line.Contains(Separator))
+                {
+                    formattedLines.Add(line);
+                    continue;
+                }
+                var indentLevel = line.Count(character => character == Tab);
+                var indent = new string(Tab, indentLevel);
+                var statements = line.Split(new[] { Separator }, System.StringSplitOptions.None);
+                foreach (var statement in statements)
+                {
+                    var trimmed = statement.TrimStart();
+                    formattedLines.Add($"{indent}{trimmed};");
+                }
+            }
+            return string.Join(NewLine, formattedLines);
+        }
     }
 }
