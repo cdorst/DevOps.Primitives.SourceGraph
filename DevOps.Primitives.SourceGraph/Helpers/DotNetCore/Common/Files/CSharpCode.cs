@@ -9,7 +9,7 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.Common.Files
     public static class CSharpCode
     {
         private const string Separator = "; ";
-        private const char Tab = '\t';
+        private const char Space = ' ';
 
         public static RepositoryFile Code(TypeDeclaration type, params string[] pathParts)
             => new RepositoryFile(
@@ -51,8 +51,8 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.Common.Files
                     formattedLines.Add(line);
                     continue;
                 }
-                var indentLevel = line.Count(character => character == Tab);
-                var indent = new string(Tab, indentLevel);
+                var indentLevel = line.TakeWhile(character => character == Space).Count();
+                var indent = new string(Space, indentLevel);
                 var statements = line.Split(new[] { Separator }, System.StringSplitOptions.None);
                 foreach (var statement in statements)
                 {
