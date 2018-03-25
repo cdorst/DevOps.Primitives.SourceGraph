@@ -19,20 +19,6 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.Common.FileSets
         private static readonly IDictionary<string, string> _emptyDictionary = new Dictionary<string, string>();
 
         public static IEnumerable<RepositoryFile> DotNetCoreRepo(
-            Solution solution,
-            Project project,
-            IEnumerable<TypeDeclaration> types)
-            => StandardGitRepo().Concat(Files(solution, project, types));
-
-        public static IEnumerable<RepositoryFile> DotNetCoreRepo(
-            Solution solution,
-            Project project,
-            IEnumerable<RepositoryFile> files)
-            => StandardGitRepo()
-                .Concat(Files(solution, project))
-                .Concat(files ?? new RepositoryFile[] { });
-
-        public static IEnumerable<RepositoryFile> DotNetCoreRepo(
             string name,
             string targetFramework,
             IEnumerable<NuGetReference> nuGetReferences = null,
@@ -54,17 +40,6 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.Common.FileSets
                 .Concat(files ?? new RepositoryFile[] { });
 
         private static IEnumerable<RepositoryFile> Files(
-            Solution solution,
-            Project project,
-            IEnumerable<TypeDeclaration> types = null)
-        {
-            yield return Solution(solution);
-            yield return Csproj(project);
-            foreach (var type in types ?? new TypeDeclaration[] { })
-                yield return Code(type);
-        }
-
-        private static IEnumerable<RepositoryFile> Files(
             string name,
             string targetFramework,
             IEnumerable<NuGetReference> nuGetReferences,
@@ -78,7 +53,7 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.Common.FileSets
             yield return Solution(name);
             yield return Csproj(name, targetFramework, nuGetReferences, nuGetPackageInfo: nuGetPackageInfo);
             foreach (var type in types ?? new TypeDeclaration[] { })
-                yield return Code(type);
+                yield return Code(type, nuGetPackageInfo.Copyright);
         }
     }
 }

@@ -11,32 +11,32 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.Common.Files
         private const string Separator = "; ";
         private const char Space = ' ';
 
-        public static RepositoryFile Code(TypeDeclaration type, params string[] pathParts)
+        public static RepositoryFile Code(TypeDeclaration type, string copyright, params string[] pathParts)
             => new RepositoryFile(
                 $"{type.Identifier.Name.Value}.cs",
-                FormatBlockStatements(type),
+                FormatCodeFile(type, copyright),
                 pathParts);
 
-        public static RepositoryFile ProjectRootCode(TypeDeclaration type)
-            => new RepositoryFile(
-                $"{type.Identifier.Name.Value}.cs",
-                type.ToString(),
-                type.Namespace.Identifier.Name.Value);
-
-        public static RepositoryFile CSharpClass(string projectName, string typeName, string @namespace, UsingDirectiveList usingDirectiveList = null, DocumentationCommentList documentationCommentList = null, AttributeListCollection attributeListCollection = null, TypeParameterList typeParameterList = null, ConstraintClauseList constraintClauseList = null, BaseList baseList = null, ConstructorList constructorList = null, FieldList fieldList = null, MethodList methodList = null, PropertyList propertyList = null, Finalizer finalizer = null)
+        public static RepositoryFile CSharpClass(string copyright, string projectName, string typeName, string @namespace, UsingDirectiveList usingDirectiveList = null, DocumentationCommentList documentationCommentList = null, AttributeListCollection attributeListCollection = null, TypeParameterList typeParameterList = null, ConstraintClauseList constraintClauseList = null, BaseList baseList = null, ConstructorList constructorList = null, FieldList fieldList = null, MethodList methodList = null, PropertyList propertyList = null, Finalizer finalizer = null)
             => Code(
                 Classes.Public(typeName, @namespace, usingDirectiveList, documentationCommentList, attributeListCollection, typeParameterList, constraintClauseList, baseList, constructorList, fieldList, methodList, propertyList, finalizer),
+                copyright,
                 projectName);
 
-        public static RepositoryFile CSharpStaticClass(string projectName, string typeName, string @namespace, UsingDirectiveList usingDirectiveList = null, DocumentationCommentList documentationCommentList = null, AttributeListCollection attributeListCollection = null, TypeParameterList typeParameterList = null, ConstraintClauseList constraintClauseList = null, BaseList baseList = null, ConstructorList constructorList = null, FieldList fieldList = null, MethodList methodList = null, PropertyList propertyList = null, Finalizer finalizer = null)
+        public static RepositoryFile CSharpStaticClass(string copyright, string projectName, string typeName, string @namespace, UsingDirectiveList usingDirectiveList = null, DocumentationCommentList documentationCommentList = null, AttributeListCollection attributeListCollection = null, TypeParameterList typeParameterList = null, ConstraintClauseList constraintClauseList = null, BaseList baseList = null, ConstructorList constructorList = null, FieldList fieldList = null, MethodList methodList = null, PropertyList propertyList = null, Finalizer finalizer = null)
             => Code(
                 Classes.PublicStatic(typeName, @namespace, usingDirectiveList, documentationCommentList, attributeListCollection, typeParameterList, constraintClauseList, baseList, constructorList, fieldList, methodList, propertyList, finalizer),
+                copyright,
                 projectName);
 
-        public static RepositoryFile CSharpInterface(string projectName, string typeName, string @namespace, UsingDirectiveList usingDirectiveList = null, DocumentationCommentList documentationCommentList = null, AttributeListCollection attributeListCollection = null, TypeParameterList typeParameterList = null, ConstraintClauseList constraintClauseList = null, BaseList baseList = null, MethodList methodList = null, PropertyList propertyList = null)
+        public static RepositoryFile CSharpInterface(string copyright, string projectName, string typeName, string @namespace, UsingDirectiveList usingDirectiveList = null, DocumentationCommentList documentationCommentList = null, AttributeListCollection attributeListCollection = null, TypeParameterList typeParameterList = null, ConstraintClauseList constraintClauseList = null, BaseList baseList = null, MethodList methodList = null, PropertyList propertyList = null)
             => Code(
                 Interfaces.Public(typeName, @namespace, usingDirectiveList, documentationCommentList, attributeListCollection, typeParameterList, constraintClauseList, baseList, methodList, propertyList),
+                copyright,
                 projectName);
+
+        private static string FormatCodeFile(TypeDeclaration type, string copyright)
+            => $"// {copyright}. All rights reserved.{NewLine}// Licensed under the GNU General Public License, Version 3.0. See the LICENSE document in the repository root for license information.{NewLine}{NewLine}{FormatBlockStatements(type)}";
 
         private static string FormatBlockStatements(TypeDeclaration type)
         {

@@ -96,6 +96,7 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.NetStandard.Packages.
                 authorEmail,
                 packageCacheUri,
                 CSharpCode.CSharpClass(
+                    packageSpecification.Copyright,
                     packageSpecification.Name,
                     typeName,
                     packageSpecification.Name,
@@ -127,6 +128,7 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.NetStandard.Packages.
                 authorEmail,
                 packageCacheUri,
                 CSharpCode.CSharpStaticClass(
+                    packageSpecification.Copyright,
                     packageSpecification.Name,
                     typeName,
                     packageSpecification.Name,
@@ -177,6 +179,7 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.NetStandard.Packages.
                 authorEmail,
                 packageCacheUri,
                 CSharpCode.CSharpInterface(
+                    packageSpecification.Copyright,
                     packageSpecification.Name,
                     typeName,
                     packageSpecification.Name,
