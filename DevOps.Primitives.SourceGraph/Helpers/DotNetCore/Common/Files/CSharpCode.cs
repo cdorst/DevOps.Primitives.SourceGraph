@@ -8,6 +8,8 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.Common.Files
 {
     public static class CSharpCode
     {
+        private const string AutoGet = " get; ";
+        private const string AutoSet = " set; ";
         private const string Separator = "; ";
         private const char Space = ' ';
 
@@ -46,7 +48,7 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.Common.Files
             var formattedLines = new List<string>();
             foreach (var line in lines)
             {
-                if (!line.Contains(Separator))
+                if (!line.Contains(Separator) || line.Contains(AutoGet) || line.Contains(AutoSet))
                 {
                     formattedLines.Add(line);
                     continue;
