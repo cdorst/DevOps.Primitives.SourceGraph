@@ -18,6 +18,8 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.NetStandard.Packages.
             IEnumerable<NuGetReference> nuGetReferences = null)
             => NetStandardRepo(
                 packageSpecification.Name,
+                authorEmail,
+                packageSpecification.Authors,
                 nuGetReferences,
                 packageSpecification.GetPackageInfo())
                 .Concat(
@@ -34,6 +36,8 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.NetStandard.Packages.
             params TypeDeclaration[] types)
             => NetStandardRepo(
                 packageSpecification.Name,
+                authorEmail,
+                packageSpecification.Authors,
                 nuGetReferences,
                 packageSpecification.GetPackageInfo(),
                 environmentVariables,
@@ -51,6 +55,8 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.NetStandard.Packages.
             params RepositoryFile[] files)
             => NetStandardRepo(
                 packageSpecification.Name,
+                authorEmail,
+                packageSpecification.Authors,
                 nuGetReferences,
                 packageSpecification.GetPackageInfo(),
                 environmentVariables,

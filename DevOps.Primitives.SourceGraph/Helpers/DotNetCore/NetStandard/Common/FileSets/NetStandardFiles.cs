@@ -12,25 +12,31 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.NetStandard.Common.Fi
 
         public static IEnumerable<RepositoryFile> NetStandardRepo(
             string name,
+            string emailAddress,
+            string accountName,
             IEnumerable<NuGetReference> nuGetReferences = null,
             NuGetPackageInfo nuGetPackageInfo = null,
             IDictionary<string, string> environmentVariables = null)
-            => DotNetCoreRepo(name, TFM, nuGetReferences, nuGetPackageInfo, environmentVariables, types: null);
+            => DotNetCoreRepo(name, TFM, emailAddress, accountName, nuGetReferences, nuGetPackageInfo, environmentVariables, types: null);
 
         public static IEnumerable<RepositoryFile> NetStandardRepo(
             string name,
+            string emailAddress,
+            string accountName,
             IEnumerable<NuGetReference> nuGetReferences = null,
             NuGetPackageInfo nuGetPackageInfo = null,
             IDictionary<string, string> environmentVariables = null,
             params TypeDeclaration[] types)
-            => DotNetCoreRepo(name, TFM, nuGetReferences, nuGetPackageInfo, environmentVariables, types);
+            => DotNetCoreRepo(name, TFM, emailAddress, accountName, nuGetReferences, nuGetPackageInfo, environmentVariables, types);
 
         public static IEnumerable<RepositoryFile> NetStandardRepo(
             string name,
+            string emailAddress,
+            string accountName,
             IEnumerable<NuGetReference> nuGetReferences = null,
             NuGetPackageInfo nuGetPackageInfo = null,
             IDictionary<string, string> environmentVariables = null,
             params RepositoryFile[] types)
-            => DotNetCoreRepo(name, TFM, nuGetReferences, nuGetPackageInfo, environmentVariables, types);
+            => DotNetCoreRepo(name, TFM, emailAddress, accountName, nuGetReferences, nuGetPackageInfo, environmentVariables, types);
     }
 }

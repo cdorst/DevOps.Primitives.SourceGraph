@@ -21,21 +21,25 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.Common.FileSets
         public static IEnumerable<RepositoryFile> DotNetCoreRepo(
             string name,
             string targetFramework,
+            string emailAddress,
+            string accountName,
             IEnumerable<NuGetReference> nuGetReferences = null,
             NuGetPackageInfo nuGetPackageInfo = null,
             IDictionary<string, string> environmentVariables = null,
             params TypeDeclaration[] types)
-            => StandardGitRepo().Concat(
+            => StandardGitRepo(accountName, emailAddress).Concat(
                 Files(name, targetFramework, nuGetReferences, nuGetPackageInfo, types, environmentVariables));
 
         public static IEnumerable<RepositoryFile> DotNetCoreRepo(
             string name,
             string targetFramework,
+            string emailAddress,
+            string accountName,
             IEnumerable<NuGetReference> nuGetReferences = null,
             NuGetPackageInfo nuGetPackageInfo = null,
             IDictionary<string, string> environmentVariables = null,
             params RepositoryFile[] files)
-            => StandardGitRepo()
+            => StandardGitRepo(accountName, emailAddress)
                 .Concat(Files(name, targetFramework, nuGetReferences, nuGetPackageInfo, null, environmentVariables))
                 .Concat(files ?? new RepositoryFile[] { });
 
