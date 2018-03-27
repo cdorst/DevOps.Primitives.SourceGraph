@@ -5,7 +5,9 @@
         private const string Name = "stale.yml";
 
         public static RepositoryFile BotStaleIssuesConfig()
-            => new RepositoryFile(Name, @"# Number of days of inactivity before an issue becomes stale
+            => new RepositoryFile(Name, @"# Configuration for stale-bot - https://github.com/probot/stale and https://github.com/apps/stale
+
+# Number of days of inactivity before an issue becomes stale
 daysUntilStale: 60
 # Number of days of inactivity before a stale issue is closed
 daysUntilClose: 7
