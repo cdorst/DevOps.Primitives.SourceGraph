@@ -10,6 +10,7 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.Common.Files
     {
         private const string AutoGet = " get; ";
         private const string AutoSet = " set; ";
+        private const string Semicolon = ";";
         private const string Separator = "; ";
         private const char Space = ' ';
 
@@ -59,7 +60,8 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.Common.Files
                 foreach (var statement in statements)
                 {
                     var trimmed = statement.TrimStart();
-                    formattedLines.Add($"{indent}{trimmed};");
+                    var statementString = trimmed.EndsWith(Semicolon) ? trimmed : $"{trimmed};";
+                    formattedLines.Add($"{indent}{statementString}");
                 }
             }
             return string.Join(NewLine, formattedLines);
