@@ -12,9 +12,9 @@ namespace DevOps.Primitives.SourceGraph.Helpers.ProjectIndex.Repositories
             => Repository(
                 "Project.Index",
                 "Metaproject directory for other repositories in this GitHub account",
+                System.Data.HashFunction.xxHash.xxHashFactory.Instance.Create().ComputeHash(Encoding.UTF8.GetBytes(string.Join(string.Empty, projectDirectory.Keys))).AsHexString(),
                 emailAddress,
                 accountName,
-                System.Data.HashFunction.xxHash.xxHashFactory.Instance.Create().ComputeHash(Encoding.UTF8.GetBytes(string.Join(string.Empty, projectDirectory.Keys))).AsHexString(),
                 Dgml(projectDirectory),
                 Readme(projectDirectory.Keys));
     }
