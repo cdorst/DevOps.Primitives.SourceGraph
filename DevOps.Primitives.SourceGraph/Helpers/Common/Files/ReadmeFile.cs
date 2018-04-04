@@ -53,7 +53,7 @@ namespace DevOps.Primitives.SourceGraph.Helpers.Common.Files
                     content.AppendLine("## Dependencies").AppendLine()
                         .AppendLine("Name | Status")
                         .AppendLine("---- | ------");
-                    foreach (var dependency in nuGetReferences) content
+                    foreach (var dependency in nuGetReferences.OrderBy(r => r.Include.Value)) content
                         .AppendLine($"{GetDependencyLink(dependency, prefix)} | {GetStatus(dependency, prefix)}");
                     content.AppendLine();
                 }
