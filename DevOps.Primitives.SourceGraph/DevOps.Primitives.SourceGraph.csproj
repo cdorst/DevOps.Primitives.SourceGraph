@@ -10,12 +10,12 @@
     <Description>Contains structures for modeling source-code repositories under a GitHub account</Description>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>CDorst.DevOps.Primitives.SourceGraph</PackageId>
-    <Version>12.0.4</Version>
+    <Version>12.0.5</Version>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="CDorst.Common.Functions.CheckNullableEnumerationForAnyElements" Version="1.0.0" />
-    <PackageReference Include="CDorst.DevOps.Primitives.CSharp.Helpers.Common" Version="3.12.2" />
+    <PackageReference Include="CDorst.DevOps.Primitives.CSharp.Helpers.Common" Version="3.12.3" />
     <PackageReference Include="CDorst.DevOps.Primitives.VisualStudio.Projects.Helpers.DotNetCore" Version="6.0.2" />
     <PackageReference Include="CDorst.DevOps.Primitives.VisualStudio.Solutions.Helpers.VisualStudio15" Version="1.2.7" />
   </ItemGroup>
