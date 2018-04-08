@@ -8,6 +8,53 @@ namespace DevOps.Primitives.SourceGraph.Helpers.TypeScript.Common.Files
 {
     public class TsConfigInfo
     {
+        public TsConfigInfo() { }
+        public TsConfigInfo(TsConfigTarget target, TsConfigModule module, IEnumerable<string> lib = null, bool allowJs = false, bool checkJs = false, TsConfigJsx? jsx = null, bool declaration = false, bool sourceMap = false, string outFile = null, string outDir = null, string rootDir = null, bool removeComments = false, bool noEmit = false, bool importHelpers = false, bool downLevelIteration = false, bool isolatedModules = false, bool strict = false, bool noImplicitAny = false, bool strictNullChecks = false, bool strictFunctionsTypes = false, bool strictPropertyInitialization = false, bool noImplicitThis = false, bool alwaysStrict = false, bool noUnusedLocals = false, bool noUnusedParameters = false, bool noImplicitReturns = false, bool noFallthroughCasesInSwitch = false, TsConfigModuleResolution? moduleResolution = null, string baseUrl = null, IDictionary<string, IEnumerable<string>> paths = null, IEnumerable<string> rootDirs = null, IEnumerable<string> typeRoots = null, IEnumerable<string> types = null, bool allowSyntheticDefaultImports = false, bool esModuleInterop = false, bool preserveSymlinks = false, string sourceRoot = null, string mapRoot = null, bool inlineSourceMap = false, bool inlineSources = false, bool experimentalDecorators = false, bool emitDecoratorMetadata = false)
+        {
+            Target = target;
+            Module = module;
+            Lib = lib;
+            AllowJs = allowJs;
+            CheckJs = checkJs;
+            Jsx = jsx;
+            Declaration = declaration;
+            SourceMap = sourceMap;
+            OutFile = outFile;
+            OutDir = outDir;
+            RootDir = rootDir;
+            RemoveComments = removeComments;
+            NoEmit = noEmit;
+            ImportHelpers = importHelpers;
+            DownLevelIteration = downLevelIteration;
+            IsolatedModules = isolatedModules;
+            Strict = strict;
+            NoImplicitAny = noImplicitAny;
+            StrictNullChecks = strictNullChecks;
+            StrictFunctionsTypes = strictFunctionsTypes;
+            StrictPropertyInitialization = strictPropertyInitialization;
+            NoImplicitThis = noImplicitThis;
+            AlwaysStrict = alwaysStrict;
+            NoUnusedLocals = noUnusedLocals;
+            NoUnusedParameters = noUnusedParameters;
+            NoImplicitReturns = noImplicitReturns;
+            NoFallthroughCasesInSwitch = noFallthroughCasesInSwitch;
+            ModuleResolution = moduleResolution;
+            BaseUrl = baseUrl;
+            Paths = paths;
+            RootDirs = rootDirs;
+            TypeRoots = typeRoots;
+            Types = types;
+            AllowSyntheticDefaultImports = allowSyntheticDefaultImports;
+            EsModuleInterop = esModuleInterop;
+            PreserveSymlinks = preserveSymlinks;
+            SourceRoot = sourceRoot;
+            MapRoot = mapRoot;
+            InlineSourceMap = inlineSourceMap;
+            InlineSources = inlineSources;
+            ExperimentalDecorators = experimentalDecorators;
+            EmitDecoratorMetadata = emitDecoratorMetadata;
+        }
+
         public TsConfigTarget Target { get; set; }
         public TsConfigModule Module { get; set; }
         public IEnumerable<string> Lib { get; set; }
