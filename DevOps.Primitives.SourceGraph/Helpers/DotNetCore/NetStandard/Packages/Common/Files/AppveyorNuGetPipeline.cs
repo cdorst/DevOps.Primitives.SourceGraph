@@ -47,6 +47,7 @@ before_build:
 - cmd: dotnet restore
 build:
   verbosity: minimal
+configuration: Release
 after_build:
 - ps: >-
     & dotnet {ToolsDirectory}\after.dll {namespacePrefix} nuget {ParentDirectory}\tmp
