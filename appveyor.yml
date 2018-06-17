@@ -1,4 +1,4 @@
-version: 12.4.6-{branch}-{build}
+version: 12.4.7-{branch}-{build}
 image: Visual Studio 2017
 environment:
   AZURE_STORAGE_CONNECTION_STRING:
