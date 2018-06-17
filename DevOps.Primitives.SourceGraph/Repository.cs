@@ -11,13 +11,20 @@ namespace DevOps.Primitives.SourceGraph
     public class Repository : IUniqueListRecord
     {
         public Repository() { }
-        public Repository(RepositoryNameDescription repositoryNameDescription, RepositoryContent repositoryContent)
+        public Repository(in RepositoryNameDescription repositoryNameDescription, in RepositoryContent repositoryContent)
         {
-            RepositoryNameDescription = repositoryNameDescription;
             RepositoryContent = repositoryContent;
+            RepositoryNameDescription = repositoryNameDescription;
         }
-        public Repository(string repositoryName, string repositoryDescription, string version, AsciiStringReferenceList sameAccountPackageDependencyList, RepositoryFileList repositoryFileList)
-            : this(new RepositoryNameDescription(repositoryName, repositoryDescription), new RepositoryContent(sameAccountPackageDependencyList, repositoryFileList, new AsciiStringReference(version)))
+        public Repository(
+            in string repositoryName,
+            in string repositoryDescription,
+            in string version,
+            in AsciiStringReferenceList sameAccountPackageDependencyList,
+            in RepositoryFileList repositoryFileList)
+            : this(
+                  new RepositoryNameDescription(in repositoryName, in repositoryDescription),
+                  new RepositoryContent(in sameAccountPackageDependencyList, in repositoryFileList, new AsciiStringReference(in version)))
         {
         }
 

@@ -13,17 +13,17 @@ namespace DevOps.Primitives.SourceGraph
     public class RepositoryList : IUniqueList<Repository, RepositoryListAssociation>
     {
         public RepositoryList() { }
-        public RepositoryList(List<RepositoryListAssociation> associations, AsciiStringReference listIdentifier = null)
+        public RepositoryList(in List<RepositoryListAssociation> associations, in AsciiStringReference listIdentifier = default)
         {
             RepositoryListAssociations = associations;
             ListIdentifier = listIdentifier;
         }
-        public RepositoryList(RepositoryListAssociation associations, AsciiStringReference listIdentifier = null)
-            : this(new List<RepositoryListAssociation> { associations }, listIdentifier)
+        public RepositoryList(in RepositoryListAssociation associations, in AsciiStringReference listIdentifier = default)
+            : this(new List<RepositoryListAssociation> { associations }, in listIdentifier)
         {
         }
-        public RepositoryList(Repository repository, AsciiStringReference listIdentifier = null)
-            : this(new RepositoryListAssociation(repository), listIdentifier)
+        public RepositoryList(in Repository repository, in AsciiStringReference listIdentifier = default)
+            : this(new RepositoryListAssociation(in repository), in listIdentifier)
         {
         }
 
@@ -41,11 +41,11 @@ namespace DevOps.Primitives.SourceGraph
 
         public List<RepositoryListAssociation> GetAssociations() => RepositoryListAssociations;
 
-        public void SetRecords(List<Repository> records)
+        public void SetRecords(in List<Repository> records)
         {
-            RepositoryListAssociations = UniqueListAssociationsFactory<Repository, RepositoryListAssociation>.Create(records);
+            RepositoryListAssociations = UniqueListAssociationsFactory<Repository, RepositoryListAssociation>.Create(in records);
             ListIdentifier = new AsciiStringReference(
-                UniqueListIdentifierFactory<Repository>.Create(records, r => r.RepositoryId));
+                UniqueListIdentifierFactory<Repository>.Create(in records, r => r.RepositoryId));
         }
     }
 }

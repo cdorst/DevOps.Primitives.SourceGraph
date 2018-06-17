@@ -9,17 +9,20 @@ namespace DevOps.Primitives.SourceGraph.Helpers.ProjectIndex.Repositories
 {
     public static class ProjectIndexRepositories
     {
-        public static Repository ProjectIndexRepository(string accountName, string emailAddress, IDictionary<string, IEnumerable<string>> projectDirectory)
+        public static Repository ProjectIndexRepository(
+            in string accountName,
+            in string emailAddress,
+            in IDictionary<string, IEnumerable<string>> projectDirectory)
             => Common.Repositories.FileRepositories.Repository(
                 "Project.Index",
                 "Metaproject directory for other repositories in this GitHub account",
                 ComputeVersionHash(projectDirectory.Keys),
-                emailAddress,
-                accountName,
-                Dgml(projectDirectory),
+                in emailAddress,
+                in accountName,
+                Dgml(in projectDirectory),
                 Readme(projectDirectory.Keys));
 
-        private static string ComputeVersionHash(IEnumerable<string> repositoryNames)
+        private static string ComputeVersionHash(in IEnumerable<string> repositoryNames)
             => Instance.Create()
                 .ComputeHash(UTF8.GetBytes(Join(Empty, repositoryNames)))
                 .AsHexString();

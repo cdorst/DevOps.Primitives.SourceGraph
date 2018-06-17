@@ -10,7 +10,7 @@ namespace DevOps.Primitives.SourceGraph
     public class RepositoryListAssociation : IUniqueListAssociation<Repository>
     {
         public RepositoryListAssociation() { }
-        public RepositoryListAssociation(Repository repository, RepositoryList solutionProjectList = null)
+        public RepositoryListAssociation(in Repository repository, in RepositoryList solutionProjectList = default)
         {
             Repository = repository;
             RepositoryList = solutionProjectList;
@@ -32,10 +32,10 @@ namespace DevOps.Primitives.SourceGraph
 
         public Repository GetRecord() => Repository;
 
-        public void SetRecord(Repository record)
+        public void SetRecord(in Repository record)
         {
             Repository = record;
-            RepositoryId = Repository.RepositoryId;
+            RepositoryId = record.RepositoryId;
         }
     }
 }

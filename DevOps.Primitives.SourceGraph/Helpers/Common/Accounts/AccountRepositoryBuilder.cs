@@ -10,7 +10,7 @@ namespace DevOps.Primitives.SourceGraph.Helpers.Common.Accounts
             params Func<GitHubAccount, Repository>[] repositories)
         {
             if (!Any(repositories)) return account;
-            foreach (var repository in repositories.Select(r => r(account))) account = account.AddRepository(repository);
+            foreach (var repository in repositories.Select(r => r(account))) account = account.AddRepository(in repository);
             return account;
         }
     }

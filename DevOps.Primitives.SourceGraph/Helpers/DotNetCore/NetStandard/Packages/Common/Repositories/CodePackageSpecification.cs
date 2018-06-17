@@ -6,23 +6,30 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.NetStandard.Packages.
 {
     public class CodePackageSpecification
     {
-        public CodePackageSpecification(CodeTypeSpecification code, PackageRepositorySpecification package,
-            IDictionary<string, string> environmentVariables = null)
+        public CodePackageSpecification(
+            in CodeTypeSpecification code,
+            in PackageRepositorySpecification package,
+            in IDictionary<string, string> environmentVariables = default)
         {
             Code = code;
             EnvironmentVariables = environmentVariables;
             Package = package;
         }
 
-        public CodePackageSpecification(CodeTypeSpecification codeTypeSpecification, List<NuGetReference> dependencies, GitHubAccount account,
-            IDictionary<string, string> environmentVariables = null)
-            : this(codeTypeSpecification,
-                  new PackageRepositorySpecification(account,
+        public CodePackageSpecification(
+            in CodeTypeSpecification codeTypeSpecification,
+            in List<NuGetReference> dependencies,
+            in GitHubAccount account,
+            in IDictionary<string, string> environmentVariables = default)
+            : this(
+                  in codeTypeSpecification,
+                  new PackageRepositorySpecification(
+                      in account,
                       codeTypeSpecification.ProjectName,
                       codeTypeSpecification.Version,
                       codeTypeSpecification.Description,
-                      dependencies),
-                  environmentVariables)
+                      in dependencies),
+                  in environmentVariables)
         {
         }
 

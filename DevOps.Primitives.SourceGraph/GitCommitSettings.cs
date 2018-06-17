@@ -9,13 +9,13 @@ namespace DevOps.Primitives.SourceGraph
     public class GitCommitSettings
     {
         public GitCommitSettings() { }
-        public GitCommitSettings(AsciiStringReference email, AsciiStringReference name)
+        public GitCommitSettings(in AsciiStringReference email, in AsciiStringReference name)
         {
             Email = email;
             Name = name;
         }
-        public GitCommitSettings(string email, string name)
-            : this(new AsciiStringReference(email), new AsciiStringReference(name))
+        public GitCommitSettings(in string email, in string name)
+            : this(new AsciiStringReference(in email), new AsciiStringReference(in name))
         {
         }
 

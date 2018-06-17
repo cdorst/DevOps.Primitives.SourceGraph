@@ -10,7 +10,7 @@ namespace DevOps.Primitives.SourceGraph
     public class RepositoryFileListAssociation : IUniqueListAssociation<RepositoryFile>
     {
         public RepositoryFileListAssociation() { }
-        public RepositoryFileListAssociation(RepositoryFile repositoryFile, RepositoryFileList solutionProjectList = null)
+        public RepositoryFileListAssociation(in RepositoryFile repositoryFile, in RepositoryFileList solutionProjectList = default)
         {
             RepositoryFile = repositoryFile;
             RepositoryFileList = solutionProjectList;
@@ -32,10 +32,10 @@ namespace DevOps.Primitives.SourceGraph
 
         public RepositoryFile GetRecord() => RepositoryFile;
 
-        public void SetRecord(RepositoryFile record)
+        public void SetRecord(in RepositoryFile record)
         {
             RepositoryFile = record;
-            RepositoryFileId = RepositoryFile.RepositoryFileId;
+            RepositoryFileId = record.RepositoryFileId;
         }
     }
 }

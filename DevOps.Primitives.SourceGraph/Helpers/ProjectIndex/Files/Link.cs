@@ -2,7 +2,7 @@
 {
     internal class Link
     {
-        public Link(string source, string target)
+        public Link(in string source, in string target)
         {
             Source = source;
             Target = target;

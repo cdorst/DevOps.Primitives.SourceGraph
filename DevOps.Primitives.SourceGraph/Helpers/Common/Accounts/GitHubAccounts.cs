@@ -14,28 +14,28 @@
                 specification.NamespacePrefix);
 
         public static GitHubAccount GitHubAccount(
-            string accountName,
-            string appveyorAzureStorageSecret,
-            string authorEmail,
-            string authorFullName,
-            string copyright,
-            string packageCacheUri,
-            string packageIconUri,
-            string namespacePrefix)
+            in string accountName,
+            in string appveyorAzureStorageSecret,
+            in string authorEmail,
+            in string authorFullName,
+            in string copyright,
+            in string packageCacheUri,
+            in string packageIconUri,
+            in string namespacePrefix)
             => new GitHubAccount(
                 new AccountSettings(
                     new GitHubAccountSettings(
-                        accountName,
+                        in accountName,
                         new GitCommitSettings(
-                            authorEmail,
-                            authorFullName)),
+                            in authorEmail,
+                            in authorFullName)),
                     new NuGetPackageSettings(
                         new NuGetPackageCacheCopyrightSettings(
-                            copyright,
-                            appveyorAzureStorageSecret,
-                            packageCacheUri),
+                            in copyright,
+                            in appveyorAzureStorageSecret,
+                            in packageCacheUri),
                         new NuGetPackageIconNamespaceSettings(
-                            packageIconUri,
-                            namespacePrefix))));
+                            in packageIconUri,
+                            in namespacePrefix))));
     }
 }

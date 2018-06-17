@@ -3,9 +3,8 @@
     public static class ContributingFile
     {
         private const string Name = "CONTRIBUTING.md";
-        private const string Path = ".github";
 
-        public static RepositoryFile Contributing(string emailAddress)
+        public static RepositoryFile Contributing(in string emailAddress)
             => new RepositoryFile(Name, $@"# How to contribute
 
 Thank you for interest in this project! This repository is created by a code-generator, but is still maintained by humans.

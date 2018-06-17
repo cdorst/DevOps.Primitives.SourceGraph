@@ -9,17 +9,17 @@ namespace DevOps.Primitives.SourceGraph
     public class GitHubAccountSettings
     {
         public GitHubAccountSettings() { }
-        public GitHubAccountSettings(AsciiStringReference accountName, GitCommitSettings gitCommitSettings)
+        public GitHubAccountSettings(in AsciiStringReference accountName, in GitCommitSettings gitCommitSettings)
         {
             AccountName = accountName;
             GitCommitSettings = gitCommitSettings;
         }
-        public GitHubAccountSettings(string accountName, GitCommitSettings gitCommitSettings)
-            : this(new AsciiStringReference(accountName), gitCommitSettings)
+        public GitHubAccountSettings(in string accountName, in GitCommitSettings gitCommitSettings)
+            : this(new AsciiStringReference(in accountName), in gitCommitSettings)
         {
         }
-        public GitHubAccountSettings(string accountName, string email, string name)
-            : this(accountName, new GitCommitSettings(email, name))
+        public GitHubAccountSettings(in string accountName, in string email, in string name)
+            : this(in accountName, new GitCommitSettings(in email, in name))
         {
         }
 

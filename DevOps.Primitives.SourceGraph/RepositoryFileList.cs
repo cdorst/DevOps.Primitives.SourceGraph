@@ -14,21 +14,21 @@ namespace DevOps.Primitives.SourceGraph
     public class RepositoryFileList : IUniqueList<RepositoryFile, RepositoryFileListAssociation>
     {
         public RepositoryFileList() { }
-        public RepositoryFileList(List<RepositoryFileListAssociation> associations, AsciiStringReference listIdentifier = null)
+        public RepositoryFileList(in List<RepositoryFileListAssociation> associations, in AsciiStringReference listIdentifier = default)
         {
             RepositoryFileListAssociations = associations;
             ListIdentifier = listIdentifier;
         }
         public RepositoryFileList(params RepositoryFile[] files)
-            : this(files.Select(f => new RepositoryFileListAssociation(f)).ToList())
+            : this(files.Select(file => new RepositoryFileListAssociation(in file)).ToList())
         {
         }
-        public RepositoryFileList(RepositoryFileListAssociation associations, AsciiStringReference listIdentifier = null)
-            : this(new List<RepositoryFileListAssociation> { associations }, listIdentifier)
+        public RepositoryFileList(in RepositoryFileListAssociation associations, in AsciiStringReference listIdentifier = default)
+            : this(new List<RepositoryFileListAssociation> { associations }, in listIdentifier)
         {
         }
-        public RepositoryFileList(RepositoryFile repositoryFile, AsciiStringReference listIdentifier = null)
-            : this(new RepositoryFileListAssociation(repositoryFile), listIdentifier)
+        public RepositoryFileList(in RepositoryFile repositoryFile, in AsciiStringReference listIdentifier = default)
+            : this(new RepositoryFileListAssociation(in repositoryFile), in listIdentifier)
         {
         }
 
@@ -46,11 +46,11 @@ namespace DevOps.Primitives.SourceGraph
 
         public List<RepositoryFileListAssociation> GetAssociations() => RepositoryFileListAssociations;
 
-        public void SetRecords(List<RepositoryFile> records)
+        public void SetRecords(in List<RepositoryFile> records)
         {
-            RepositoryFileListAssociations = UniqueListAssociationsFactory<RepositoryFile, RepositoryFileListAssociation>.Create(records);
+            RepositoryFileListAssociations = UniqueListAssociationsFactory<RepositoryFile, RepositoryFileListAssociation>.Create(in records);
             ListIdentifier = new AsciiStringReference(
-                UniqueListIdentifierFactory<RepositoryFile>.Create(records, r => r.RepositoryFileId));
+                UniqueListIdentifierFactory<RepositoryFile>.Create(in records, r => r.RepositoryFileId));
         }
     }
 }

@@ -9,11 +9,11 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.NetStandard.Packages.
         public PackageRepositorySpecification() { }
 
         public PackageRepositorySpecification(
-            NuGetPackageSpecification packageSpecification,
-            string appveyorAzureStorageSecret,
-            string authorEmail,
-            string packageCacheUri,
-            List<NuGetReference> dependencies)
+            in NuGetPackageSpecification packageSpecification,
+            in string appveyorAzureStorageSecret,
+            in string authorEmail,
+            in string packageCacheUri,
+            in List<NuGetReference> dependencies)
         {
             AppveyorAzureStorageSecret = appveyorAzureStorageSecret;
             AuthorEmail = authorEmail;
@@ -23,20 +23,66 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.NetStandard.Packages.
         }
 
         public PackageRepositorySpecification(
-            string gitHubAndNuGetAccount, string name, string version, string copyright, string description, string packageIconUrl, string namespacePrefix, string authorEmail, string packageCacheUri, string appveyorAzureStorageSecret, List<NuGetReference> dependencies)
+            in string gitHubAndNuGetAccount,
+            in string name,
+            in string version,
+            in string copyright,
+            in string description,
+            in string packageIconUrl,
+            in string namespacePrefix,
+            in string authorEmail,
+            in string packageCacheUri,
+            in string appveyorAzureStorageSecret,
+            in List<NuGetReference> dependencies)
             : this(
-                  new NuGetPackageSpecification(gitHubAndNuGetAccount, name, version, copyright, description, packageIconUrl, namespacePrefix),
-                  appveyorAzureStorageSecret, authorEmail, packageCacheUri, dependencies)
+                  new NuGetPackageSpecification(
+                      in gitHubAndNuGetAccount,
+                      in name,
+                      in version,
+                      in copyright,
+                      in description,
+                      in packageIconUrl,
+                      in namespacePrefix),
+                  in appveyorAzureStorageSecret,
+                  in authorEmail,
+                  in packageCacheUri,
+                  in dependencies)
         {
         }
 
-        public PackageRepositorySpecification(string name, string version, string description, List<NuGetReference> dependencies, ReusablePackageSpecification packageSpecification)
-            : this(packageSpecification.GitHubAndNuGetAccount, name, version, packageSpecification.Copyright, description, packageSpecification.PackageIconUrl, packageSpecification.NamespacePrefix, packageSpecification.AuthorEmail, packageSpecification.PackageCacheUrl, packageSpecification.AppveyorAzureStorageSecret, dependencies)
+        public PackageRepositorySpecification(
+            in string name,
+            in string version,
+            in string description,
+            in List<NuGetReference> dependencies,
+            in ReusablePackageSpecification packageSpecification)
+            : this(
+                  packageSpecification.GitHubAndNuGetAccount,
+                  in name,
+                  in version,
+                  packageSpecification.Copyright,
+                  in description,
+                  packageSpecification.PackageIconUrl,
+                  packageSpecification.NamespacePrefix,
+                  packageSpecification.AuthorEmail,
+                  packageSpecification.PackageCacheUrl,
+                  packageSpecification.AppveyorAzureStorageSecret,
+                  in dependencies)
         {
         }
 
-        public PackageRepositorySpecification(GitHubAccount account, string name, string version, string description, List<NuGetReference> dependencies)
-            : this(name, version, description, dependencies, account.AccountSettings.GetPackageSpecification())
+        public PackageRepositorySpecification(
+            in GitHubAccount account,
+            in string name,
+            in string version,
+            in string description,
+            in List<NuGetReference> dependencies)
+            : this(
+                  in name,
+                  in version,
+                  in description,
+                  in dependencies,
+                  account.AccountSettings.GetPackageSpecification())
         {
         }
 

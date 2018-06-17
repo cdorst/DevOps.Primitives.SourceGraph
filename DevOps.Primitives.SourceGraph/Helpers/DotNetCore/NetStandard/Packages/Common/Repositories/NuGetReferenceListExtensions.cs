@@ -3,13 +3,15 @@ using DevOps.Primitives.Strings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using static System.String;
 
 namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.NetStandard.Packages.Common.Repositories
 {
     public static class NuGetReferenceListExtensions
     {
         public static AsciiStringReferenceList GetSameAccountNuGetDependencies(
-            this IEnumerable<NuGetReference> nuGetReferences, string account)
+            this IEnumerable<NuGetReference> nuGetReferences,
+            in string account)
             => nuGetReferences.Any(PackageUnderAccount(account))
                 ? new AsciiStringReferenceList
                 {
@@ -17,14 +19,13 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.NetStandard.Packages.
                         .Where(PackageUnderAccount(account))
                         .Select(package => new AsciiStringReferenceListAssociation
                         {
-                            AsciiStringReference = new AsciiStringReference(
-                                package.Include.Value)
+                            AsciiStringReference = new AsciiStringReference(package.Include.Value)
                         })
                         .ToList()
                 }
                 : null;
 
         internal static Func<NuGetReference, bool> PackageUnderAccount(string account)
-            => package => package.Include.Value.StartsWith($"{account}.");
+            => package => package.Include.Value.StartsWith(Concat(account, "."));
     }
 }

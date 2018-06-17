@@ -2,8 +2,8 @@
 using DevOps.Primitives.Strings;
 using ProtoBuf;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.HashFunction.xxHash;
-using System.Text;
+using static System.Data.HashFunction.xxHash.xxHashFactory;
+using static System.Text.Encoding;
 
 namespace DevOps.Primitives.SourceGraph
 {
@@ -12,17 +12,17 @@ namespace DevOps.Primitives.SourceGraph
     public class RepositoryFile : IUniqueListRecord
     {
         public RepositoryFile() { }
-        public RepositoryFile(FileName fileName, UnicodeMaxStringReference content)
+        public RepositoryFile(in FileName fileName, in UnicodeMaxStringReference content)
         {
             Content = content;
             FileName = fileName;
         }
-        public RepositoryFile(FileName fileName, string content)
-            : this(fileName, new UnicodeMaxStringReference(content))
+        public RepositoryFile(in FileName fileName, in string content)
+            : this(in fileName, new UnicodeMaxStringReference(in content))
         {
         }
-        public RepositoryFile(string name, string content, params string[] pathParts)
-            : this(new FileName(name, pathParts), content)
+        public RepositoryFile(in string name, in string content, params string[] pathParts)
+            : this(new FileName(in name, in pathParts), in content)
         {
         }
 
@@ -40,8 +40,8 @@ namespace DevOps.Primitives.SourceGraph
         public int ContentId { get; set; }
 
         public string ComputeHash()
-            => xxHashFactory.Instance.Create()
-                .ComputeHash(Encoding.UTF8.GetBytes(Content.Value))
+            => Instance.Create()
+                .ComputeHash(UTF8.GetBytes(Content.Value))
                 .AsHexString();
 
         public string GetPathRelativeToRepositoryRoot()

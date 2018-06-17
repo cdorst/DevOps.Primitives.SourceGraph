@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Text;
 using static Common.Functions.CheckNullableEnumerationForAnyElements.NullableEnumerationAny;
-using static DevOps.Primitives.SourceGraph.Helpers.Common.Files.ReamdmeFileHelper;
+using static DevOps.Primitives.SourceGraph.Helpers.Common.Files.ReadmeFileHelper;
 
 namespace DevOps.Primitives.SourceGraph.Helpers.ProjectIndex.Files
 {

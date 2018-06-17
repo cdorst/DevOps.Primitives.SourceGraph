@@ -5,6 +5,6 @@
         public const string OutDir = "./dist/";
         public const string SourceDirectory = "./src/**/*";
 
-        public static readonly string[] IncludePaths = new[] { SourceDirectory };
+        public static readonly string[] IncludePaths = { SourceDirectory };
     }
 }

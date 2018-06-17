@@ -4,7 +4,7 @@ namespace DevOps.Primitives.SourceGraph.Helpers.Common.Accounts
 {
     public static class GitHubAccountAddRepositoryExtension
     {
-        public static GitHubAccount AddRepository(this GitHubAccount account, Repository repository)
+        public static GitHubAccount AddRepository(this GitHubAccount account, in Repository repository)
         {
             account.RepositoryList = account.RepositoryList
                 .Merge<RepositoryList, Repository, RepositoryListAssociation>(

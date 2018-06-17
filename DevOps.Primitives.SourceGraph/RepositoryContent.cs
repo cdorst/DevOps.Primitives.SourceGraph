@@ -10,10 +10,13 @@ namespace DevOps.Primitives.SourceGraph
     public class RepositoryContent
     {
         public RepositoryContent() { }
-        public RepositoryContent(AsciiStringReferenceList sameAccountPackageDependencyList, RepositoryFileList repositoryFileList, AsciiStringReference version)
+        public RepositoryContent(
+            in AsciiStringReferenceList sameAccountPackageDependencyList,
+            in RepositoryFileList repositoryFileList,
+            in AsciiStringReference version)
         {
-            SameAccountPackageDependencyList = sameAccountPackageDependencyList;
             RepositoryFileList = repositoryFileList;
+            SameAccountPackageDependencyList = sameAccountPackageDependencyList;
             Version = version;
         }
 

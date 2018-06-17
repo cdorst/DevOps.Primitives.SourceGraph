@@ -3,14 +3,14 @@
     public class GitHubAccountSpecification
     {
         public GitHubAccountSpecification(
-            string accountName,
-            string appveyorAzureStorageSecret,
-            string authorEmail,
-            string authorFullName,
-            string copyright,
-            string packageCacheUri,
-            string packageIconUri,
-            string namespacePrefix)
+            in string accountName,
+            in string appveyorAzureStorageSecret,
+            in string authorEmail,
+            in string authorFullName,
+            in string copyright,
+            in string packageCacheUri,
+            in string packageIconUri,
+            in string namespacePrefix)
         {
             AccountName = accountName;
             AppveyorAzureStorageSecret = appveyorAzureStorageSecret;

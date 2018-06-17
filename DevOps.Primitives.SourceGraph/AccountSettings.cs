@@ -8,7 +8,7 @@ namespace DevOps.Primitives.SourceGraph
     public class AccountSettings
     {
         public AccountSettings() { }
-        public AccountSettings(GitHubAccountSettings gitHubAccountSettings, NuGetPackageSettings nuGetPackageSettings)
+        public AccountSettings(in GitHubAccountSettings gitHubAccountSettings, in NuGetPackageSettings nuGetPackageSettings)
         {
             GitHubAccountSettings = gitHubAccountSettings;
             NuGetPackageSettings = nuGetPackageSettings;

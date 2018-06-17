@@ -8,7 +8,12 @@
         private const string ToolsVersion = "15";
         private static readonly string ToolsDirectory = $@"c:\projects\nuget\tools_{ToolsVersion}";
 
-        public static RepositoryFile AppveyorYml(string nugetSource, string namespacePrefix, string notificationEmail, string appveyorAzureStorageSecret, string version)
+        public static RepositoryFile AppveyorYml(
+            in string nugetSource,
+            in string namespacePrefix,
+            in string notificationEmail,
+            in string appveyorAzureStorageSecret,
+            in string version)
             => new RepositoryFile(Name, $@"version: {version}-{{branch}}-{{build}}
 image: Visual Studio 2017
 environment:

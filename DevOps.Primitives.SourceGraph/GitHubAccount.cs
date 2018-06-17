@@ -9,7 +9,7 @@ namespace DevOps.Primitives.SourceGraph
     public class GitHubAccount
     {
         public GitHubAccount() { }
-        public GitHubAccount(AccountSettings accountSettings, RepositoryList repositoryList = null)
+        public GitHubAccount(in AccountSettings accountSettings, in RepositoryList repositoryList = default)
         {
             AccountSettings = accountSettings;
             RepositoryList = repositoryList;

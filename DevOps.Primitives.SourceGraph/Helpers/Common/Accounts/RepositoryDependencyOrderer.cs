@@ -8,8 +8,8 @@ namespace DevOps.Primitives.SourceGraph.Helpers.Common.Accounts
     {
         public static IEnumerable<Repository> Order(this IEnumerable<Repository> repositories)
         {
-            var considerations = GetDependencyConsiderations(repositories);
-            var dependencies = GetDependencyDictionary(repositories);
+            var considerations = GetDependencyConsiderations(in repositories);
+            var dependencies = GetDependencyDictionary(in repositories);
             var worked = new HashSet<string>();
             var queue = new Queue<Repository>(repositories);
             while (queue.Any())
@@ -27,10 +27,10 @@ namespace DevOps.Primitives.SourceGraph.Helpers.Common.Accounts
             }
         }
 
-        private static HashSet<string> GetDependencyConsiderations(IEnumerable<Repository> repositories)
+        private static HashSet<string> GetDependencyConsiderations(in IEnumerable<Repository> repositories)
             => new HashSet<string>(repositories.Select(r => r.GetName()).Distinct());
 
-        private static Dictionary<string, HashSet<string>> GetDependencyDictionary(IEnumerable<Repository> repositories)
+        private static Dictionary<string, HashSet<string>> GetDependencyDictionary(in IEnumerable<Repository> repositories)
         {
             var dependencyDictionary = new Dictionary<string, HashSet<string>>();
             foreach (var repository in repositories)

@@ -4,7 +4,7 @@
     {
         private const string Name = "CODE_OF_CONDUCT.md";
 
-        public static RepositoryFile CodeOfConduct(string emailAddress)
+        public static RepositoryFile CodeOfConduct(in string emailAddress)
             => new RepositoryFile(Name, $@"# Contributor Covenant Code of Conduct
 
 ## Our Pledge

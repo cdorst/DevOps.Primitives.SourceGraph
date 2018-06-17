@@ -9,13 +9,13 @@ namespace DevOps.Primitives.SourceGraph
     public class NuGetPackageCacheSettings
     {
         public NuGetPackageCacheSettings() { }
-        public NuGetPackageCacheSettings(AsciiStringReference appveyorAzureStorageSecret, AsciiStringReference packageCacheUrl)
+        public NuGetPackageCacheSettings(in AsciiStringReference appveyorAzureStorageSecret, in AsciiStringReference packageCacheUrl)
         {
             AppveyorAzureStorageSecret = appveyorAzureStorageSecret;
             PackageCacheUrl = packageCacheUrl;
         }
-        public NuGetPackageCacheSettings(string appveyorAzureStorageSecret, string packageCacheUrl)
-            : this(new AsciiStringReference(appveyorAzureStorageSecret), new AsciiStringReference(packageCacheUrl))
+        public NuGetPackageCacheSettings(in string appveyorAzureStorageSecret, in string packageCacheUrl)
+            : this(new AsciiStringReference(in appveyorAzureStorageSecret), new AsciiStringReference(in packageCacheUrl))
         {
         }
 

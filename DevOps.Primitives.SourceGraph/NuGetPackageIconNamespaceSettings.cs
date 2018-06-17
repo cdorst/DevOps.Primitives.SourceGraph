@@ -9,13 +9,13 @@ namespace DevOps.Primitives.SourceGraph
     public class NuGetPackageIconNamespaceSettings
     {
         public NuGetPackageIconNamespaceSettings() { }
-        public NuGetPackageIconNamespaceSettings(AsciiStringReference packageIconUrl, AsciiStringReference namespacePrefix)
+        public NuGetPackageIconNamespaceSettings(in AsciiStringReference packageIconUrl, in AsciiStringReference namespacePrefix)
         {
             NamespacePrefix = namespacePrefix;
             PackageIconUrl = packageIconUrl;
         }
-        public NuGetPackageIconNamespaceSettings(string packageIconUrl, string namespacePrefix)
-            : this(new AsciiStringReference(packageIconUrl), new AsciiStringReference(namespacePrefix))
+        public NuGetPackageIconNamespaceSettings(in string packageIconUrl, in string namespacePrefix)
+            : this(new AsciiStringReference(in packageIconUrl), new AsciiStringReference(in namespacePrefix))
         {
         }
 

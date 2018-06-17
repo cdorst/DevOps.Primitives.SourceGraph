@@ -13,15 +13,15 @@ namespace DevOps.Primitives.SourceGraph
     public class FileName
     {
         public FileName() { }
-        public FileName(AsciiStringReference name, AsciiStringReferenceList pathParts)
+        public FileName(in AsciiStringReference name, in AsciiStringReferenceList pathParts)
         {
             Name = name;
             PathParts = pathParts;
         }
-        public FileName(string name, IEnumerable<string> pathParts)
-            : this(new AsciiStringReference(name),
+        public FileName(in string name, in string[] pathParts)
+            : this(new AsciiStringReference(in name),
                   Any(pathParts)
-                    ? new AsciiStringReferenceList { AsciiStringReferenceListAssociations = pathParts.Select(p => new AsciiStringReferenceListAssociation { AsciiStringReference = new AsciiStringReference(p) }).ToList() }
+                    ? new AsciiStringReferenceList { AsciiStringReferenceListAssociations = pathParts.Select(p => new AsciiStringReferenceListAssociation { AsciiStringReference = new AsciiStringReference(in p) }).ToList() }
                     : null)
         {
         }

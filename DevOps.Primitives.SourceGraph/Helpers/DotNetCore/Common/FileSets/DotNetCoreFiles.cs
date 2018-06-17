@@ -1,8 +1,6 @@
 ﻿using DevOps.Primitives.CSharp;
 using DevOps.Primitives.NuGet;
-using DevOps.Primitives.VisualStudio.Projects;
 using DevOps.Primitives.VisualStudio.Projects.Helpers.DotNetCore;
-using DevOps.Primitives.VisualStudio.Solutions;
 using System.Collections.Generic;
 using System.Linq;
 using static DevOps.Primitives.SourceGraph.Helpers.Common.Files.ReadmeFile;
@@ -19,25 +17,25 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.Common.FileSets
         private static readonly IDictionary<string, string> _emptyDictionary = new Dictionary<string, string>();
 
         public static IEnumerable<RepositoryFile> DotNetCoreRepo(
-            string name,
-            string targetFramework,
-            string emailAddress,
-            string accountName,
-            IEnumerable<NuGetReference> nuGetReferences = null,
-            NuGetPackageInfo nuGetPackageInfo = null,
-            IDictionary<string, string> environmentVariables = null,
+            in string name,
+            in string targetFramework,
+            in string emailAddress,
+            in string accountName,
+            in IEnumerable<NuGetReference> nuGetReferences = default,
+            in NuGetPackageInfo nuGetPackageInfo = default,
+            in IDictionary<string, string> environmentVariables = default,
             params TypeDeclaration[] types)
             => StandardGitRepo(accountName, emailAddress).Concat(
                 Files(name, targetFramework, nuGetReferences, nuGetPackageInfo, types, environmentVariables));
 
         public static IEnumerable<RepositoryFile> DotNetCoreRepo(
-            string name,
-            string targetFramework,
-            string emailAddress,
-            string accountName,
-            IEnumerable<NuGetReference> nuGetReferences = null,
-            NuGetPackageInfo nuGetPackageInfo = null,
-            IDictionary<string, string> environmentVariables = null,
+            in string name,
+            in string targetFramework,
+            in string emailAddress,
+            in string accountName,
+            in IEnumerable<NuGetReference> nuGetReferences = default,
+            in NuGetPackageInfo nuGetPackageInfo = default,
+            in IDictionary<string, string> environmentVariables = default,
             params RepositoryFile[] files)
             => StandardGitRepo(accountName, emailAddress)
                 .Concat(Files(name, targetFramework, nuGetReferences, nuGetPackageInfo, null, environmentVariables))
@@ -48,16 +46,16 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.Common.FileSets
             string targetFramework,
             IEnumerable<NuGetReference> nuGetReferences,
             NuGetPackageInfo nuGetPackageInfo,
-            IEnumerable<TypeDeclaration> types = null,
-            IDictionary<string, string> environmentVariables = null)
+            IEnumerable<TypeDeclaration> types = default,
+            IDictionary<string, string> environmentVariables = default)
         {
-            yield return Readme(name, nuGetReferences, nuGetPackageInfo,
+            yield return Readme(in name, in nuGetReferences, in nuGetPackageInfo,
                 (environmentVariables ?? _emptyDictionary)
                     .Merge(LOCAL_NUGET_SOURCE_PATH));
-            yield return Solution(name);
-            yield return Csproj(name, targetFramework, nuGetReferences, nuGetPackageInfo: nuGetPackageInfo);
+            yield return Solution(in name);
+            yield return Csproj(in name, in targetFramework, in nuGetReferences, nuGetPackageInfo: in nuGetPackageInfo);
             foreach (var type in types ?? new TypeDeclaration[] { })
-                yield return Code(type, nuGetPackageInfo.Copyright);
+                yield return Code(in type, nuGetPackageInfo.Copyright);
         }
     }
 }

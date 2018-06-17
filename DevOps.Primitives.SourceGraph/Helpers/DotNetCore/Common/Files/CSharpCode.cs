@@ -3,6 +3,7 @@ using DevOps.Primitives.CSharp.Helpers.Common;
 using System.Collections.Generic;
 using System.Linq;
 using static System.Environment;
+using static System.String;
 
 namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.Common.Files
 {
@@ -14,34 +15,76 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.Common.Files
         private const string Separator = "; ";
         private const char Space = ' ';
 
-        public static RepositoryFile Code(TypeDeclaration type, string copyright, params string[] pathParts)
+        public static RepositoryFile Code(in TypeDeclaration type, in string copyright, params string[] pathParts)
             => new RepositoryFile(
-                $"{type.Identifier.Name.Value}.cs",
+                Concat(type.Identifier.Name.Value, ".cs"),
                 FormatCodeFile(type, copyright),
                 pathParts);
 
-        public static RepositoryFile CSharpClass(string copyright, string projectName, string typeName, string @namespace, UsingDirectiveList usingDirectiveList = null, DocumentationCommentList documentationCommentList = null, AttributeListCollection attributeListCollection = null, TypeParameterList typeParameterList = null, ConstraintClauseList constraintClauseList = null, BaseList baseList = null, ConstructorList constructorList = null, FieldList fieldList = null, MethodList methodList = null, PropertyList propertyList = null, Finalizer finalizer = null)
+        public static RepositoryFile CSharpClass(
+            in string copyright,
+            in string projectName,
+            in string typeName,
+            in string @namespace,
+            in UsingDirectiveList usingDirectiveList = default,
+            in DocumentationCommentList documentationCommentList = default,
+            in AttributeListCollection attributeListCollection = default,
+            in TypeParameterList typeParameterList = default,
+            in ConstraintClauseList constraintClauseList = default,
+            in BaseList baseList = default,
+            in ConstructorList constructorList = default,
+            in FieldList fieldList = default,
+            in MethodList methodList = default,
+            in PropertyList propertyList = default,
+            in Finalizer finalizer = default)
             => Code(
-                Classes.Public(typeName, @namespace, usingDirectiveList, documentationCommentList, attributeListCollection, typeParameterList, constraintClauseList, baseList, constructorList, fieldList, methodList, propertyList, finalizer),
-                copyright,
+                Classes.Public(in typeName, in @namespace, in usingDirectiveList, in documentationCommentList, in attributeListCollection, in typeParameterList, in constraintClauseList, in baseList, in constructorList, in fieldList, in methodList, in propertyList, in finalizer),
+                in copyright,
                 projectName);
 
-        public static RepositoryFile CSharpStaticClass(string copyright, string projectName, string typeName, string @namespace, UsingDirectiveList usingDirectiveList = null, DocumentationCommentList documentationCommentList = null, AttributeListCollection attributeListCollection = null, TypeParameterList typeParameterList = null, ConstraintClauseList constraintClauseList = null, BaseList baseList = null, ConstructorList constructorList = null, FieldList fieldList = null, MethodList methodList = null, PropertyList propertyList = null, Finalizer finalizer = null)
+        public static RepositoryFile CSharpStaticClass(
+            in string copyright,
+            in string projectName,
+            in string typeName,
+            in string @namespace,
+            in UsingDirectiveList usingDirectiveList = default,
+            in DocumentationCommentList documentationCommentList = default,
+            in AttributeListCollection attributeListCollection = default,
+            in TypeParameterList typeParameterList = default,
+            in ConstraintClauseList constraintClauseList = default,
+            in BaseList baseList = default,
+            in ConstructorList constructorList = default,
+            in FieldList fieldList = default,
+            in MethodList methodList = default,
+            in PropertyList propertyList = default,
+            in Finalizer finalizer = default)
             => Code(
-                Classes.PublicStatic(typeName, @namespace, usingDirectiveList, documentationCommentList, attributeListCollection, typeParameterList, constraintClauseList, baseList, constructorList, fieldList, methodList, propertyList, finalizer),
-                copyright,
+                Classes.PublicStatic(in typeName, in @namespace, in usingDirectiveList, in documentationCommentList, in attributeListCollection, in typeParameterList, in constraintClauseList, in baseList, in constructorList, in fieldList, in methodList, in propertyList, in finalizer),
+                in copyright,
                 projectName);
 
-        public static RepositoryFile CSharpInterface(string copyright, string projectName, string typeName, string @namespace, UsingDirectiveList usingDirectiveList = null, DocumentationCommentList documentationCommentList = null, AttributeListCollection attributeListCollection = null, TypeParameterList typeParameterList = null, ConstraintClauseList constraintClauseList = null, BaseList baseList = null, MethodList methodList = null, PropertyList propertyList = null)
+        public static RepositoryFile CSharpInterface(
+            in string copyright,
+            in string projectName,
+            in string typeName,
+            in string @namespace,
+            in UsingDirectiveList usingDirectiveList = default,
+            in DocumentationCommentList documentationCommentList = default,
+            in AttributeListCollection attributeListCollection = default,
+            in TypeParameterList typeParameterList = default,
+            in ConstraintClauseList constraintClauseList = default,
+            in BaseList baseList = default,
+            in MethodList methodList = default,
+            in PropertyList propertyList = default)
             => Code(
-                Interfaces.Public(typeName, @namespace, usingDirectiveList, documentationCommentList, attributeListCollection, typeParameterList, constraintClauseList, baseList, methodList, propertyList),
-                copyright,
+                Interfaces.Public(in typeName, in @namespace, in usingDirectiveList, in documentationCommentList, in attributeListCollection, in typeParameterList, in constraintClauseList, in baseList, in methodList, in propertyList),
+                in copyright,
                 projectName);
 
-        private static string FormatCodeFile(TypeDeclaration type, string copyright)
-            => $"// {copyright}. All rights reserved.{NewLine}// Licensed under the GNU General Public License, Version 3.0. See the LICENSE document in the repository root for license information.{NewLine}{NewLine}{FormatBlockStatements(type)}";
+        private static string FormatCodeFile(in TypeDeclaration type, in string copyright)
+            => Concat("// ", copyright, ". All rights reserved.", NewLine, "// Licensed under the GNU General Public License, Version 3.0. See the LICENSE document in the repository root for license information.", NewLine, NewLine, FormatBlockStatements(in type));
 
-        private static string FormatBlockStatements(TypeDeclaration type)
+        private static string FormatBlockStatements(in TypeDeclaration type)
         {
             var contents = type.ToString();
             if (!contents.Contains(Separator)) return contents;
@@ -60,11 +103,11 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.Common.Files
                 foreach (var statement in statements)
                 {
                     var trimmed = statement.TrimStart();
-                    var statementString = trimmed.EndsWith(Semicolon) ? trimmed : $"{trimmed};";
-                    formattedLines.Add($"{indent}{statementString}");
+                    var statementString = trimmed.EndsWith(Semicolon) ? trimmed : Concat(trimmed, ";");
+                    formattedLines.Add(Concat(indent, statementString));
                 }
             }
-            return string.Join(NewLine, formattedLines);
+            return Join(NewLine, formattedLines);
         }
     }
 }

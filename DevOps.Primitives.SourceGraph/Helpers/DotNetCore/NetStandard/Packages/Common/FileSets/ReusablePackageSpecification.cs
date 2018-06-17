@@ -3,7 +3,14 @@
     public class ReusablePackageSpecification
     {
         public ReusablePackageSpecification() { }
-        public ReusablePackageSpecification(string account, string copyright, string email, string namespacePrefix, string packageCacheUrl, string packageIconUrl, string appveyorAzureStorageSecret)
+        public ReusablePackageSpecification(
+            in string account,
+            in string copyright,
+            in string email,
+            in string namespacePrefix,
+            in string packageCacheUrl,
+            in string packageIconUrl,
+            in string appveyorAzureStorageSecret)
         {
             AppveyorAzureStorageSecret = appveyorAzureStorageSecret;
             AuthorEmail = email;
@@ -13,15 +20,30 @@
             PackageCacheUrl = packageCacheUrl;
             PackageIconUrl = packageIconUrl;
         }
-        public ReusablePackageSpecification(string account, GitCommitSettings gitCommitSettings, NuGetPackageCacheCopyrightSettings nuGetPackageCacheCopyrightSettings, NuGetPackageIconNamespaceSettings nuGetPackageIconNamespaceSettings)
-            : this(account, nuGetPackageCacheCopyrightSettings.Copyright.Value, gitCommitSettings.Email.Value, nuGetPackageIconNamespaceSettings.NamespacePrefix.Value, nuGetPackageCacheCopyrightSettings.NuGetPackageCacheSettings.PackageCacheUrl.Value, nuGetPackageIconNamespaceSettings.PackageIconUrl.Value, nuGetPackageCacheCopyrightSettings.NuGetPackageCacheSettings.AppveyorAzureStorageSecret.Value)
+        public ReusablePackageSpecification(
+            in string account,
+            in GitCommitSettings gitCommitSettings,
+            in NuGetPackageCacheCopyrightSettings nuGetPackageCacheCopyrightSettings,
+            in NuGetPackageIconNamespaceSettings nuGetPackageIconNamespaceSettings)
+            : this(
+                  in account,
+                  nuGetPackageCacheCopyrightSettings.Copyright.Value,
+                  gitCommitSettings.Email.Value,
+                  nuGetPackageIconNamespaceSettings.NamespacePrefix.Value,
+                  nuGetPackageCacheCopyrightSettings.NuGetPackageCacheSettings.PackageCacheUrl.Value,
+                  nuGetPackageIconNamespaceSettings.PackageIconUrl.Value,
+                  nuGetPackageCacheCopyrightSettings.NuGetPackageCacheSettings.AppveyorAzureStorageSecret.Value)
         {
         }
-        public ReusablePackageSpecification(GitHubAccountSettings gitHubAccountSettings, NuGetPackageSettings nuGetPackageSettings)
-            : this(gitHubAccountSettings.AccountName.Value, gitHubAccountSettings.GitCommitSettings, nuGetPackageSettings.NuGetPackageCacheCopyrightSettings, nuGetPackageSettings.NuGetPackageIconNamespaceSettings)
+        public ReusablePackageSpecification(in GitHubAccountSettings gitHubAccountSettings, in NuGetPackageSettings nuGetPackageSettings)
+            : this(
+                  gitHubAccountSettings.AccountName.Value,
+                  gitHubAccountSettings.GitCommitSettings,
+                  nuGetPackageSettings.NuGetPackageCacheCopyrightSettings,
+                  nuGetPackageSettings.NuGetPackageIconNamespaceSettings)
         {
         }
-        public ReusablePackageSpecification(AccountSettings account)
+        public ReusablePackageSpecification(in AccountSettings account)
             : this(account.GitHubAccountSettings, account.NuGetPackageSettings)
         {
         }

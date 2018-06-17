@@ -3,7 +3,11 @@
     public class CodeTypeSpecification
     {
         public CodeTypeSpecification() { }
-        public CodeTypeSpecification(string projectName, string description, InterfacePackageSpecification code, string version = "1.0.0")
+        public CodeTypeSpecification(
+            in string projectName,
+            in string description,
+            in InterfacePackageSpecification code,
+            in string version = "1.0.0")
         {
             Code = code;
             Description = description;

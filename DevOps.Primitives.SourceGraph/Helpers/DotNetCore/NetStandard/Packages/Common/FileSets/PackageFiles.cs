@@ -11,62 +11,67 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.NetStandard.Packages.
     public static class PackageFiles
     {
         public static IEnumerable<RepositoryFile> Package(
-            NuGetPackageSpecification packageSpecification,
-            string authorEmail,
-            string packageCacheUri,
-            string appveyorAzureStorageSecret,
-            IEnumerable<NuGetReference> nuGetReferences = null)
+            in NuGetPackageSpecification packageSpecification,
+            in string authorEmail,
+            in string packageCacheUri,
+            in string appveyorAzureStorageSecret,
+            in IEnumerable<NuGetReference> nuGetReferences = default)
             => NetStandardRepo(
                 packageSpecification.Name,
-                authorEmail,
+                in authorEmail,
                 packageSpecification.Authors,
-                nuGetReferences,
+                in nuGetReferences,
                 packageSpecification.GetPackageInfo())
                 .Concat(
                     NuGetFiles(packageCacheUri, packageSpecification.NamespacePrefix, authorEmail, appveyorAzureStorageSecret, packageSpecification.Version));
 
 
         public static IEnumerable<RepositoryFile> Package(
-            NuGetPackageSpecification packageSpecification,
-            string authorEmail,
-            string packageCacheUri,
-            string appveyorAzureStorageSecret,
-            IEnumerable<NuGetReference> nuGetReferences = null,
-            IDictionary<string, string> environmentVariables = null,
+            in NuGetPackageSpecification packageSpecification,
+            in string authorEmail,
+            in string packageCacheUri,
+            in string appveyorAzureStorageSecret,
+            in IEnumerable<NuGetReference> nuGetReferences = default,
+            in IDictionary<string, string> environmentVariables = default,
             params TypeDeclaration[] types)
             => NetStandardRepo(
                 packageSpecification.Name,
-                authorEmail,
+                in authorEmail,
                 packageSpecification.Authors,
-                nuGetReferences,
+                in nuGetReferences,
                 packageSpecification.GetPackageInfo(),
-                environmentVariables,
+                in environmentVariables,
                 types)
                 .Concat(
                     NuGetFiles(packageCacheUri, packageSpecification.NamespacePrefix, authorEmail, appveyorAzureStorageSecret, packageSpecification.Version));
 
         public static IEnumerable<RepositoryFile> Package(
-            NuGetPackageSpecification packageSpecification,
-            string authorEmail,
-            string packageCacheUri,
-            string appveyorAzureStorageSecret,
-            IEnumerable<NuGetReference> nuGetReferences = null,
-            IDictionary<string, string> environmentVariables = null,
+            in NuGetPackageSpecification packageSpecification,
+            in string authorEmail,
+            in string packageCacheUri,
+            in string appveyorAzureStorageSecret,
+            in IEnumerable<NuGetReference> nuGetReferences = default,
+            in IDictionary<string, string> environmentVariables = default,
             params RepositoryFile[] files)
             => NetStandardRepo(
                 packageSpecification.Name,
-                authorEmail,
+                in authorEmail,
                 packageSpecification.Authors,
-                nuGetReferences,
+                in nuGetReferences,
                 packageSpecification.GetPackageInfo(),
-                environmentVariables,
+                in environmentVariables,
                 files)
                 .Concat(
                     NuGetFiles(packageCacheUri, packageSpecification.NamespacePrefix, authorEmail, appveyorAzureStorageSecret, packageSpecification.Version));
 
-        private static IEnumerable<RepositoryFile> NuGetFiles(string packageCacheUri, string namespacePrefix, string authorEmail, string appveyorAzureStorageSecret, string version)
+        private static IEnumerable<RepositoryFile> NuGetFiles(
+            string packageCacheUri,
+            string namespacePrefix,
+            string authorEmail,
+            string appveyorAzureStorageSecret,
+            string version)
         {
-            yield return AppveyorYml(packageCacheUri, namespacePrefix, authorEmail, appveyorAzureStorageSecret, version);
+            yield return AppveyorYml(in packageCacheUri, in namespacePrefix, in authorEmail, in appveyorAzureStorageSecret, in version);
             yield return NuGetConfig();
         }
     }

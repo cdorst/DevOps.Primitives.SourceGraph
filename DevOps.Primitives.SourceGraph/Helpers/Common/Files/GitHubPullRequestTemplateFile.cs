@@ -4,7 +4,7 @@
     {
         private const string Name = "pull_request_template.md";
 
-        public static RepositoryFile GitHubPullRequestTemplate(string accountName)
+        public static RepositoryFile GitHubPullRequestTemplate(in string accountName)
             => new RepositoryFile(Name, $@"## Purpose
 
 <!-- Please provide a short (1 sentence) reason for this Pull Request -->

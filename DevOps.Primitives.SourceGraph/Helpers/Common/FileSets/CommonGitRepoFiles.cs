@@ -17,11 +17,11 @@ namespace DevOps.Primitives.SourceGraph.Helpers.Common.FileSets
         {
             yield return BotStaleIssuesConfig();
             yield return BotWelcomeConfig();
-            yield return Contributing(emailAddress);
-            yield return CodeOfConduct(emailAddress);
+            yield return Contributing(in emailAddress);
+            yield return CodeOfConduct(in emailAddress);
             yield return GitAttributes();
             yield return GitHubIssueTemplate();
-            yield return GitHubPullRequestTemplate(accountName);
+            yield return GitHubPullRequestTemplate(in accountName);
             yield return GitIgnore();
             yield return License();
         }

@@ -8,7 +8,13 @@ namespace DevOps.Primitives.SourceGraph.Helpers.Consolidated
 {
     public class Code
     {
-        public Code(string projectName, string description, string version, List<NuGetReference> dependencies, InterfacePackageSpecification declaration, IDictionary<string, string> environmentVariables = null)
+        public Code(
+            in string projectName,
+            in string description,
+            in string version,
+            in List<NuGetReference> dependencies,
+            in InterfacePackageSpecification declaration,
+            in IDictionary<string, string> environmentVariables = default)
         {
             Declaration = declaration;
             Dependencies = dependencies;

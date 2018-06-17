@@ -5,8 +5,17 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.NetStandard.Packages.
 {
     public class InterfacePackageSpecification
     {
-        public InterfacePackageSpecification(string typeName,
-            IDictionary<string, string> environmentVariables = null, UsingDirectiveList usingDirectiveList = null, DocumentationCommentList documentationCommentList = null, AttributeListCollection attributeListCollection = null, TypeParameterList typeParameterList = null, ConstraintClauseList constraintClauseList = null, BaseList baseList = null, MethodList methodList = null, PropertyList propertyList = null)
+        public InterfacePackageSpecification(
+            in string typeName,
+            in IDictionary<string, string> environmentVariables = default,
+            in UsingDirectiveList usingDirectiveList = default,
+            in DocumentationCommentList documentationCommentList = default,
+            in AttributeListCollection attributeListCollection = default,
+            in TypeParameterList typeParameterList = default,
+            in ConstraintClauseList constraintClauseList = default,
+            in BaseList baseList = default,
+            in MethodList methodList = default,
+            in PropertyList propertyList = default)
         {
             AttributeListCollection = attributeListCollection;
             BaseList = baseList;
@@ -19,6 +28,7 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.NetStandard.Packages.
             TypeParameterList = typeParameterList;
             UsingDirectiveList = usingDirectiveList;
         }
+
         public AttributeListCollection AttributeListCollection { get; set; }
         public BaseList BaseList { get; set; }
         public ConstraintClauseList ConstraintClauseList { get; set; }

@@ -8,7 +8,7 @@ namespace DevOps.Primitives.SourceGraph
     public class NuGetPackageSettings
     {
         public NuGetPackageSettings() { }
-        public NuGetPackageSettings(NuGetPackageCacheCopyrightSettings nuGetPackageCacheCopyrightSettings, NuGetPackageIconNamespaceSettings nuGetPackageIconNamespaceSettings)
+        public NuGetPackageSettings(in NuGetPackageCacheCopyrightSettings nuGetPackageCacheCopyrightSettings, in NuGetPackageIconNamespaceSettings nuGetPackageIconNamespaceSettings)
         {
             NuGetPackageCacheCopyrightSettings = nuGetPackageCacheCopyrightSettings;
             NuGetPackageIconNamespaceSettings = nuGetPackageIconNamespaceSettings;

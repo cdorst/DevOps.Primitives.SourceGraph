@@ -8,35 +8,35 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.NetStandard.Common.Fi
 {
     public static class NetStandardFiles
     {
-        private const string TFM = "netstandard2.0";
+        private static readonly string TargetFramework = "netstandard2.0";
 
         public static IEnumerable<RepositoryFile> NetStandardRepo(
-            string name,
-            string emailAddress,
-            string accountName,
-            IEnumerable<NuGetReference> nuGetReferences = null,
-            NuGetPackageInfo nuGetPackageInfo = null,
-            IDictionary<string, string> environmentVariables = null)
-            => DotNetCoreRepo(name, TFM, emailAddress, accountName, nuGetReferences, nuGetPackageInfo, environmentVariables, types: null);
+            in string name,
+            in string emailAddress,
+            in string accountName,
+            in IEnumerable<NuGetReference> nuGetReferences = default,
+            in NuGetPackageInfo nuGetPackageInfo = default,
+            in IDictionary<string, string> environmentVariables = default)
+            => DotNetCoreRepo(in name, in TargetFramework, in emailAddress, in accountName, in nuGetReferences, in nuGetPackageInfo, in environmentVariables, types: default);
 
         public static IEnumerable<RepositoryFile> NetStandardRepo(
-            string name,
-            string emailAddress,
-            string accountName,
-            IEnumerable<NuGetReference> nuGetReferences = null,
-            NuGetPackageInfo nuGetPackageInfo = null,
-            IDictionary<string, string> environmentVariables = null,
+            in string name,
+            in string emailAddress,
+            in string accountName,
+            in IEnumerable<NuGetReference> nuGetReferences = default,
+            in NuGetPackageInfo nuGetPackageInfo = default,
+            in IDictionary<string, string> environmentVariables = default,
             params TypeDeclaration[] types)
-            => DotNetCoreRepo(name, TFM, emailAddress, accountName, nuGetReferences, nuGetPackageInfo, environmentVariables, types);
+            => DotNetCoreRepo(in name, in TargetFramework, in emailAddress, in accountName, in nuGetReferences, in nuGetPackageInfo, in environmentVariables, types);
 
         public static IEnumerable<RepositoryFile> NetStandardRepo(
-            string name,
-            string emailAddress,
-            string accountName,
-            IEnumerable<NuGetReference> nuGetReferences = null,
-            NuGetPackageInfo nuGetPackageInfo = null,
-            IDictionary<string, string> environmentVariables = null,
+            in string name,
+            in string emailAddress,
+            in string accountName,
+            in IEnumerable<NuGetReference> nuGetReferences = default,
+            in NuGetPackageInfo nuGetPackageInfo = default,
+            in IDictionary<string, string> environmentVariables = default,
             params RepositoryFile[] types)
-            => DotNetCoreRepo(name, TFM, emailAddress, accountName, nuGetReferences, nuGetPackageInfo, environmentVariables, types);
+            => DotNetCoreRepo(in name, in TargetFramework, in emailAddress, in accountName, in nuGetReferences, in nuGetPackageInfo, in environmentVariables, types);
     }
 }
