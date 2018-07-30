@@ -82,7 +82,9 @@ namespace DevOps.Primitives.SourceGraph.Helpers.DotNetCore.Common.Files
                 projectName);
 
         private static string FormatCodeFile(in TypeDeclaration type, in string copyright)
-            => Concat("// ", copyright, ". All rights reserved.", NewLine, "// Licensed under the GNU General Public License, Version 3.0. See the LICENSE document in the repository root for license information.", NewLine, NewLine, FormatBlockStatements(in type));
+            => IsNullOrWhiteSpace(copyright)
+                ? FormatBlockStatements(in type)
+                : Concat("// ", copyright, ". All rights reserved.", NewLine, "// Licensed under the GNU General Public License, Version 3.0. See the LICENSE document in the repository root for license information.", NewLine, NewLine, FormatBlockStatements(in type));
 
         private static string FormatBlockStatements(in TypeDeclaration type)
         {
